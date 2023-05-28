@@ -1,0 +1,22 @@
+---
+title: "Sentiment analysis"
+---
+
+## Sentiment
+
+Extract sentiment from your text.
+
+```python Python
+text_fields = ["reviews"]
+ds.extract_sentiment(text_fields=text_fields)
+```
+
+### Sentiment with HuggingFace
+
+You can pass through any sentiment analysis model from HuggingFace through the `model_name` to use that model instead.
+
+```python Python
+ds.extract_sentiment(text_fields=text_fields, model_name="cardiffnlp/twitter-roberta-base-sentiment-latest")
+```
+
+For enterprise we provide a model trained on millions of text.

@@ -1,0 +1,81 @@
+---
+title: "Filters"
+---
+
+<Note>
+**📘 Filters help us find what we need**
+
+Filters are great way to retrieve a subset of documents that matches certain criteria. This allows us to have a more fine-grained overview of the data.  
+
+For instance, in an e-commerce dataset, we can retrieve all products:
+
+- with `prices` between 200 and 300 dollars
+- with the phrase `free return` included in `description` field
+- that are produced after `January 2020`
+</Note>
+
+Filters can be used in many different places such as retrieving documents, search, cluster, transformations, etc.
+
+## Simple filters
+
+For python we provide a simpler interface to filter data that is very similar to pandas.
+
+### Category filter (exact match)
+
+```python Python
+from relevanceai import Client
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+ds = client.Dataset("quickstart")
+
+filters = ds["title"] == "Apple IPhone 13 Pro"
+
+ds.get_documents(filters=filters)
+```
+
+### Numeric filter
+
+```python Python
+filters = (ds["price"] >= 200) + (ds["price"] < 300)
+
+ds.get_documents(filters=filters)
+```
+
+### Exists filter
+
+```python Python
+filters = ds['sold'].exists()
+
+ds.get_documents(filters=filters)
+```
+
+or to filter by not exist
+
+```python Python
+filters = ds['sold'].not_exists()
+
+ds.get_documents(filters=filters)
+```
+
+### Contains substring
+
+To filter by a substring of a text.
+
+```python Python
+filters = ds['title'].contains("Apple")
+
+ds.get_documents(filters=filters)
+```
+
+### Date filtering
+
+To filter by data matching an exact date.
+
+```python Python
+filters = ds["_insert_date"].date("2020-07-01")
+
+ds.get_documents(filters=filters)
+```
+
+There are more filters options and ways to customize filters that are explored in the following sections.
+
+The full list of filters we support are: `exists`, `ids`, `numeric`, `date`, `contains`, exact\_match`, word_match`, `categories`, `regex`

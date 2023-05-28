@@ -1,0 +1,23 @@
+---
+title: "List datasets"
+---
+
+## List your datasets
+
+```python Python 
+from relevanceai import Client
+
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+
+client.list_datasets()
+```
+
+## Search for datasets
+
+This will do a string search of a dataset by its name/id.
+
+```python Python 
+client.search_datasets("test")
+```
+
+Alternatively, you can view and search for all your datasets at [https://cloud.relevance.ai/datasets](https://cloud.relevance.ai/datasets).

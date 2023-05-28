@@ -1,0 +1,40 @@
+---
+title: "Traditional text search"
+---
+
+## Hybrid search
+
+Hybrid search, combining text and vector search to create the best results. For example, vector search isn't great at matching SKUs such as "KFR-123", where as traditional search excels at it.
+
+```python Python
+text_query = "Awesome"
+results = ds.search(
+    vector_search_query=search_query,
+    query=text_query,
+    fields_to_search=["text"],
+)
+```
+
+You can adjust the weight of traditional search as well with `query_config.weight`.
+
+```python Python
+text_query = "Awesome"
+results = ds.search(
+    vector_search_query=search_query,
+    query=text_query,
+    fields_to_search=["text"],
+    query_config={"weight": 0.1}
+)
+```
+
+## Just traditional search
+
+You can also just search without vectors.
+
+```python Python
+text_query = "Awesome"
+results = ds.search(
+    query=text_query,
+    fields_to_search=["text"],
+)
+```

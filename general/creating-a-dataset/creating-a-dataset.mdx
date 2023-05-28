@@ -1,0 +1,49 @@
+---
+title: "Creating a dataset"
+description: "Quick guide on how to create a dataset"
+---
+
+## Dataset & Documents
+
+A collection of documents is called a dataset.
+
+Documents can be described as Python dictionaries and is a unit of data in Relevance - similar to a row in a SQL table or a document in MongoDB collection. 
+
+Documents are stored in Relevance AI as a JSON. By storing data in this format you can store complex structures that are common to unstructured data. Example:
+
+```python Python
+{
+  "_id" : 1,
+  "title" : "Apple IPhone 13 Pro",
+  "product" : {
+    "image_url" : "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-card-40-iphone13pro-202203?wid=340&hei=264&fmt=p-jpg&qlt=95&.v=1644989935267"
+    "price" : 1699
+  },
+  "title_ner" : [
+    {"substring":"Apple", "label":"Organization", "probabilty":0.98}, 
+    {"substring":"IPhone", "label":"Product", "probability":0.97}, 
+  ],
+  "title_labels" : [
+    {"label":"Phone", "probability":0.93}, 
+    {"label":"Electronic", "probabilty":0.80}, 
+  ],
+  "words" : ["Apple", "IPhone", "13", "Pro"],
+  "title_word_vector_" : [0.12, 0.34, ...],
+  "product_image_vector_" : [0.12, 0.34, ...],
+}
+```
+
+- A document can be **nested** (dictionary of dictionaries) or have **array** (list) values.
+- A **field** refers to the key of a dictionary.
+
+| **Schema Rule**                                                                                                                                                                                             | **Example**                            |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| Each document should include an \_id string field that is used to uniquely identify each document, if 2 documents have the same \_id the last inserted document will overwrite the old one.                 | `"\_id": "j2hfio23j"`                  |
+| If you are inserting **vectors**. The field must end (suffix) with \_vector\_. All vectors under a field must be the same length. You can store as many different vectors as you want in a single document. | `"word\_vector\_":\[0.12, 0.34, ...\]` |
+
+<Warning>
+🚧 **Dataset Limitations!**
+
+-  You cannot rename datasets or rename/edit existing field names. However, you can clone datasets and edit field names in the clone using the [`clone`](https://relevanceai.readthedocs.io/en/v0.33.2/client.html#relevanceai.http%5Fclient.Client.clone%5Fdataset) feature.
+-  A Dataset name cannot contain spaces or capital letters.
+</Warning>

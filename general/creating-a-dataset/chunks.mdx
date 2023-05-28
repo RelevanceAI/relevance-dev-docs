@@ -1,0 +1,33 @@
+---
+title: "Chunks (Beta)"
+description: "Guide to insert documents that contain chunk data"
+---
+
+### Chunk Documents
+
+Chunks are a list/array of documents/dictionary. They are useful to breakdown a large piece of data into smaller ones. e.g. `sentences` are chunks from `paragraphs`. Chunk documents have `chunks` which are denoted by the suffix `_chunk_`.
+
+An example of a chunk document is as such:
+
+```python Python 
+{
+  "_id" : 1,
+  "title" : "Apple IPhone 13 Pro",
+  "title_chunk_" : [
+    {"word": "Apple, "word_chunkvector_":[0.12, 0.23, ...]},
+    {"word": "IPhone, "word_chunkvector_":[0.23, 0.34, ...]},
+    {"word": "13, "word_chunkvector_":[0.34, 0.45, ...]},
+    {"word": "Pro, "word_chunkvector_":[0.45, 0.56, ...]}
+  ],
+  "title_word_vector_" : [0.12, 0.34, ...],
+}
+```
+
+## Schema Rules
+
+| **Type**           | **Explanation**                                                                                                                                                                                                                     |                                                              |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Chunks (Beta)      | Chunks are a list/array of documents/dictionary. They are useful to breakdown a large piece of data into smaller ones. e.g. `sentences` are chunks from `paragraphs`. Must have the suffix (ends with) `\_chunk\_`.                 | `"text\_chunk\_":\[0.12, 0.34, ...\]`                        |
+| Chunkvector (Beta) | A vector or embedding for chunks. Must have the suffix (ends with) `\_chunkvector\_`, and can only be stored within chunks. It cannot exceed length of 2048, for length greater than 2048 you can break it up into smaller vectors. | `"text\_chunk\_.sentence\_chunkvector\_":\[0.12, 0.34, ...\]`|
+
+Documents containing chunk fields can be used for special chunk related features such as chunk vector search, aggregating on chunk data, etc.

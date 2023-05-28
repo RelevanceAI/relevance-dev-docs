@@ -1,0 +1,47 @@
+---
+title: "Dataset schema"
+---
+
+## Field Data Types
+
+| **Type**           | **Explanation**                                                                                                                                                                                                                                                                        |                                                               |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Text               | String values                                                                                                                                                                                                                                                                          | `"text" : "Apple IPhone"`                                     |
+| Numeric            | Numeric values (int, long, float)                                                                                                                                                                                                                                                      | `"price":1699`                                                |
+| Boolean            |`true` and `false` values                                                                                                                                                                                                                                                               | `"sold" : False`                                              |
+| Date               | A date value. We automatically detect date values that follows the schema of `2022-01-01, 2022-01-01T12:00:00Z`                                                                                                                                                                        | `"word\_vector\_":\[0.12, 0.34, ...\]`                        |
+| Dict               | A python dictionary (also known as object in javascript)                                                                                                                                                                                                                               | `"product\_details : {...}`                                   |
+| Vector             | A vector or embedding is a special array of numerics. Data stored as this type will be available for all vector-based operations. Must have the suffix (ends with)` \_vector\_`. It cannot exceed length of 2048, for length greater than 2048 you can break it up into smaller vectors.| `"word\_vector\_":\[0.12, 0.34, ...\]`                       |
+| Chunks (Beta)      | Chunks are a list/array of documents/dictionary. They are useful to breakdown a large piece of data into smaller ones. e.g. sentences are chunks from paragraphs. Must have the suffix (ends with) `\_chunk\_`.                                                                        | `"text\_chunk\_":\[0.12, 0.34, ...\]`                         |
+| Chunkvector (Beta) | A vector or embedding for chunks. Must have the suffix (ends with) \_chunkvector\_, and can only be stored within chunks. It cannot exceed length of 2048, for length greater than 2048 you can break it up into smaller vectors.                                                      | `"text\_chunk\_.sentence\_chunkvector\_":\[0.12, 0.34, ...\]` |
+
+<Warning>
+🚧 **List/array field type**
+ 
+List and arrays are not identified in our schema. For example: `"text_list":["Apple", "IPhone"]` is of field type `text`, `"past_prices": [1500, 1000]` is of field type `numeric`. Chunks are an alternative way to store data as an array, it is still in beta.
+</Warning>
+
+
+## Get a dataset's schema
+
+```python Python 
+ds.schema
+```
+
+## Creating a dataset with pre-specified schema
+
+```python Python 
+ds.create_dataset(schema={"price":"numeric"})
+```
+
+To display it in a pandas dataframe:
+
+```python Python 
+ds.info()
+```
+
+## Number of documents with fields missing
+
+```python Python 
+ds.health()
+```

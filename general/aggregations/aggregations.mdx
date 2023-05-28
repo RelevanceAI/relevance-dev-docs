@@ -1,0 +1,53 @@
+---
+title: "Aggregations"
+---
+
+## Aggregations
+
+Aggregations are a way to extract analytics insights from data to then be visualized to create reports and charts. In Relevance aggregations can be combined with filters, search, clusters and more!
+
+## Simple aggregation query
+
+Each aggregation requires a `name`, `field` and `agg`. 
+
+* `field` is the field you are aggregating on.
+* `agg` is the type of aggregation you are going to perform.
+* `name` is an field to rename the output of the aggregation.
+
+```python Python
+from relevanceai import Client
+
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+ds = client.Dataset("quickstart")
+
+groupby = [
+  {"name": "location", "field": "location", "agg": "text"}
+]
+metrics = [
+  {"name": "avg_price", "field": "price", "agg": "avg"},
+  {"name": "max_price", "field": "price", "agg": "max"},        
+]
+
+results = ds.aggregate(metrics=metrics, groupby=groupby)
+```
+
+Aggregation is pagination supported. You can control the `page_size` and `page`.
+
+```python Python
+results = ds.aggregate(metrics=metrics, groupby=groupby, page_size=20, page=2)
+```
+
+Aggregations can be sorted as well `desc` for descending order, `asc` for ascending order.
+
+```python Python
+results = ds.aggregate(metrics=metrics, groupby=groupby, sort=[{"avg_price" : "desc"}])
+```
+
+## Combining filters with aggregations
+
+Aggregations can be used in conjunction with filters.
+
+```python Python
+filters = ds['location'] == "New York" 
+results = ds.aggregate(metrics=metrics, groupby=groupby, filters=filters)
+```

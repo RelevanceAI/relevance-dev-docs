@@ -1,0 +1,146 @@
+---
+title: "Combine filters"
+---
+
+## Combining filters
+
+It is possible to combine multiple filters. For instance, the sample code below shows a filter that searches for
+
+* a Lenovo flip cover
+* produced after January 2020
+* by either Lapguard or 4D brand.  
+
+<Frame caption="Filtering results when using multiple filters: categories, contains, and date.">
+  <img src="/images/multiple-filters.png" />
+</Frame>
+
+```python Python 
+filters = [
+    {
+        "field": "description",
+        "filter_type" : "contains",
+        "condition": "==",
+        "condition_value": "Lenovo"
+    },
+    {
+        "field" : "brand",
+        "filter_type" : "categories",
+        "condition": "==",
+        "condition_value": ['Lapguard', '4D']
+    },
+    {
+        "field" : "insert_date_",
+        "filter_type" : "date",
+        "condition": ">=",
+        "condition_value": "2020-01-01"
+    }
+]
+
+filtered_data = ds.get_documents(filters=filters)
+```
+
+## Using "Or" filters
+
+The `or` filter helps you filter for multiple conditions. Unlike other filters, the only values used here are `filter_type` and `condition_value`.
+
+```python Python 
+filters = [
+    {
+        "filter_type" : "or",
+        "condition_value": [
+            {
+                "field" : "price",
+                "filter_type" : "numeric",
+                "condition": "<=",
+                "condition_value": 90
+            },
+            {
+                "field" : "price",
+                "filter_type" : "numeric",
+                "condition": ">=",
+                "condition_value": 150
+            }
+        ]
+    }
+]
+filtered_data = ds.get_documents(filters=filters)
+```
+
+### (A or B) and (C or D)
+
+```python Python 
+filters = [
+    {
+        "filter_type" : "or",
+        "condition_value": [
+            {
+                "field" : "price",
+                "filter_type" : "numeric",
+                "condition":"<=",
+                "condition_value":90
+            },
+            {
+                "field" : "price",
+                "filter_type" : "numeric",
+                "condition":">=",
+                "condition_value": 150
+            }
+        ]
+    },
+    {
+        "filter_type" : "or",
+        "condition_value": [
+            {
+            "field" : "animal",
+            "filter_type" : "category",
+            "condition":"==",
+            "condition_value":"cat"
+            },
+            {
+            "field" : "animal",
+            "filter_type" : "category",
+            "condition":"==",
+            "condition_value": "dog"
+            }
+        ]
+    },
+]
+filtered_data = ds.get_documents(filters=filters)
+```
+
+### (A or B or C) and D
+
+```python Python 
+filters = [
+    {
+        "filter_type" : "or",
+        "condition_value": [
+            {
+                "field" : "price",
+                "filter_type" : "numeric",
+                "condition": "<=",
+                "condition_value": 90
+            },
+            {
+                "field" : "price",
+                "filter_type" : "numeric",
+                "condition": ">=",
+                "condition_value": 150
+            },
+            {
+                "field" : "value",
+                "filter_type" : "numeric",
+                "condition": ">=",
+                "condition_value": 2
+            },
+        ]
+    },
+    {
+        "field" : "animal",
+        "filter_type" : "category",
+        "condition": "==",
+        "condition_value": "cat"
+    },
+]
+filtered_data = ds.get_documents(filters=filters)
+```

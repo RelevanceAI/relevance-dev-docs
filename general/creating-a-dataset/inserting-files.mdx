@@ -1,0 +1,64 @@
+---
+title: "Inserting files / media"
+---
+
+## Inserting CSV
+
+```python Python 
+from relevanceai import Client
+
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+ds = client.Dataset("california_housing_test")
+
+ds.insert_csv("./sample_data/california_housing_test.csv")
+```
+
+## Easy Inserting Images
+
+```python Python 
+documents = [
+  {
+    "_id": "1",
+    "image": "absolute_path_to_image_1",
+  },
+  {
+    "_id": "2",
+    "image": "absolute_path_to_image_2",
+  },
+  {
+    "_id": "3",
+    "image": "absolute_path_to_image_2",
+  },
+]
+
+dataset.insert_documents(documents, media_fields=["image"])
+```
+
+Look below for more advanced methods.
+
+## Inserting files (media, images, audios, etc)
+
+```python Python 
+list_of_images = ["/user/me/image_1.png", "/user/me/image_2.png"]
+
+ds.upsert_media(list_of_images)
+```
+
+Files inserted this way are stored in Relevance's secure S3\. If you are an enterprise this is stored in your designated S3.
+
+When you delete the dataset, all the data will also be deleted off S3.
+
+```python Python 
+ds.delete()
+```
+
+If you want to just upload the files to S3 but not insert it as documents into the dataset.
+
+```python Python 
+list_of_images = ["/user/me/image_1.png", "/user/me/image_2.png"]
+
+docs = ds.host_media_documents(list_of_images)
+#{"url":...}
+
+ds.insert_documents(docs)
+```

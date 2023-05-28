@@ -1,0 +1,39 @@
+---
+title: "Managing app updates"
+---
+
+Report app can be editted via the dashboard without any coding, we provide great helper functions to make sure your app is constantly synced throughout.
+
+### Syncing via reloading the app
+
+When you reload the app with a deployable id all the latest changes will be reloaded as well.
+
+```python Python
+from relevanceai.apps import ReportApp
+app = ReportApp(name="My App", dataset=ds, deployable_id="12345")
+```
+
+### Syncing via refreshing the app
+
+If your app was editted via dashboard or another collaborate, whilst your app class was already created. You can run `app.refresh` to update your local app class with all the changes they have made.
+
+```python Python
+app.refresh()
+```
+
+This function will return all the updates that were made by your collaborators as well.
+
+## Resetting your app
+
+You can reset your app to a blank app with `app.reset` this is especially useful if you are creating your app within a python script as opposed to a python notebook.
+
+```python Python
+from relevanceai.apps import ReportApp
+app = ReportApp(name="My App", dataset=ds, deployable_id="12345")
+app.reset()
+app.h1("My Report App")
+app.h2("Where I present insights")
+app.deploy()
+```
+
+This will ensure that everytime your script is updated with a new block and it is reran all the other blocks aren't appended but recreated with this.

@@ -1,0 +1,56 @@
+---
+title: "Marks"
+---
+
+Marks are a way to format text blocks, such as bold, italic. You can add multiple marks to a single block.
+
+## Bold
+
+```python Python
+app.p(app.bold("This is a bolded text"))
+```
+
+## Italic
+
+```python Python
+app.p(app.italic("This is an italicised text"))
+```       
+
+## Strike
+
+```python Python
+app.p(app.strike("This is a striked text"))
+```
+
+## Underline
+
+```python Python
+app.p(app.underline("This is an underlined text"))
+```
+
+## Code
+
+```python Python
+app.p(app.inline_code("import numpy as np"))
+```
+
+## Combining marks
+
+You can combine marks freely and they'll be applied accordingly.
+
+```python Python
+app.p(app.underline(["This is", app.bold("bold"), "and underlined text"]))
+```
+
+<Warning>
+❗️**A mark must be used with a text block**
+
+Such as `paragraph`, `h1`, etc. Otherwise it will not be added to the app.
+
+</Warning>
+
+```python Python
+app.italic("This is an italicised text")
+```
+
+This will not add the text to the app.

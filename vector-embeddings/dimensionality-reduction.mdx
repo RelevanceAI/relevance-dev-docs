@@ -1,0 +1,53 @@
+---
+title: "Dimensionality reduction"
+---
+
+## Dimensionality Reduction
+
+If you have a single or multiple large vectors. You can reduce your vectors down to `n_components` easily. This is great for ensembling different vectors, but also interpretation by projecting onto a 3D/2D plane.
+
+```python Python 
+from relevanceai import Client
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+ds = client.Dataset("quickstart")
+
+vector_fields = ["text_vector"]
+ds.reduce_dims(vector_fields=vector_fields, n_components=3)
+```
+
+The default model used is PCA from scikit-learn.
+
+This outputs to the "\{alias\}_\{vector\_field\}\_vector_" by default. You can change it easily with `output_field`.
+
+```python Python 
+ds.reduce_dims(vector_fields=vector_fields, n_components=3, output_field="pca_vector_")
+```
+
+Out of the box support for many other dimensionality reduction algorithms.
+
+## Support for UMAP
+
+[https://umap-learn.readthedocs.io/en/latest/](https://umap-learn.readthedocs.io/en/latest/)
+
+```shell Shell
+pip install umap-learn
+```
+
+Then you can use `model=umap` with an easy string
+
+```python Python 
+dr_model = umap.UMAP()
+ds.reduce_dims(vector_fields=vector_fields, n_components=3, 
+               model="umap", output_field="pca_vector_")
+```
+
+We also support [IVIS](https://bering-ivis.readthedocs.io/en/latest/python%5Fpackage.html), TSNE out of the box. Just pass in "tsne", "ivis".
+
+## Combine with filters
+
+Just like many functions in Relevance, dimensionality reduction can be combined with filters.
+
+```python Python 
+ds.reduce_dims(vector_fields=vector_fields, n_components=3, 
+               output_field="pca_vector_", filters=filters)
+```

@@ -1,0 +1,26 @@
+---
+title: "Vector search on chunks (Beta)"
+description: "For the fastest vector search"
+---
+
+## Searching within chunks
+
+Searching within chunks gets you more granular results.
+
+```python Python
+ds.advanced_search(
+    vector_search_query=[
+        {
+         "vector": [0.1, 0.1, 0.1, 0.1, 0.1],
+         "field": "word_chunkvector_",
+         "chunkConfig": {
+             "chunkField": "_chunk_",
+             "page": 0,
+             "pageSize": 3
+             # the number of chunk results to return
+             # stored in `_chunk_results` key
+         }
+        },
+    ],
+)
+```

@@ -1,0 +1,49 @@
+---
+title: "Get started"
+---
+
+## Main concepts
+
+Creating reports are simple. You add a few app sections, blocks and marks and then your run `app.deploy()`
+
+```python Python
+from relevanceai import Client
+client = Client(token=YOUR_AUTH_TOKEN)
+
+from relevanceai.apps import ReportApp
+app = ReportApp(name="My App", dataset=ds)
+app.h1("My first app")
+app.p("Creating my first app")
+app.deploy()
+```
+
+You can also display your app within jupyter notebook with:
+
+```python Python
+app.gui()
+```
+
+### Blocks
+
+Blocks are essentially content, every time you add a paragraph, image or chart that's a block. There are many different kind of blocks, some blocks can contain other blocks. A page is a combination of different blocks you add to it.
+
+### Marks
+
+Marks are a way to format text blocks, such as bold, italic. You can add multiple marks to a single block. 
+
+### Sections
+
+Sections are a logical combination of blocks that is packaged together for a specific use case. e.g. you can have a combination of a dataframe of a time series and a line chart of that dataframe as a "time series section".
+
+### Deployable ID
+
+Every app is associated with a **deployable** configuration. Every deployable has a unique id. You can access your app's id with `app.deployable_id`. If your id is None, run `app.deploy` and an id will be generated with the app.
+
+You can reload apps by specifying its deployable id:
+
+```python Python
+my_id = "123456"
+app = ReportApp(name="My App", dataset=ds, deployable_id=my_id)
+`
+
+This will reload all the created blocks, marks and sections for the app into your app class.

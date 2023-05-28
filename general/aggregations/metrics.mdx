@@ -1,0 +1,78 @@
+---
+title: "Supported metrics"
+---
+
+Each metric requires a `name`, `field` and `agg`.
+
+* `field` is the field you are aggregating on.
+* `agg` is the type of aggregation you are going to perform.
+* `name` is an field to rename the output of the aggregation.
+
+The metrics we support are:  
+`avg` (alias:`mean`), `max`, `min`, `sum`, `count`, `cardinality`, `percentiles`,  
+`variance`, `std_deviation`, `std_deviation_bounds`, `kurtosis`, `sum_of_squares`,  
+multifield metrics: `correlation`
+
+## `avg`, `max`, `min`, `sum`
+
+These metrics work on fields with `numeric` type.
+
+```python Python (SDK)
+avg_price_metric = {"name": "avg_price", "field": "price", "agg": "avg"}
+
+max_price_metric = {"name": "max_price", "field": "price", "agg": "max"}
+
+min_price_metric = {"name": "min_price", "field": "price", "agg": "min"}
+
+total_price_metric = {"name": "total_price", "field": "price", "agg": "sum"}
+```
+
+## `percentiles`
+
+Returns the different percentiles of the data (default: 1, 5, 25, 50, 75, 95, 99). This metric works on fields with `numeric` type. 
+
+```python Python
+percentiles_price_metric = {"field": "price", "agg": "percentiles"}
+```
+
+## `variance`, `std_deviation`, `std_deviation_bounds`, `sum_of_squares`, `kurtosis`, `skewness`
+
+We support a variety of advanced statistical measurements to help you do a further in-depth analysis of the data. These metrics work on fields with `numeric` type.
+
+```python Python
+var_price_metric = {"field": "price", "agg": "variance"}
+
+std_price_metric = {"field": "price", "agg": "std_deviation"}
+
+std_bounds_price_metric = {"field": "price", "agg": "std_deviation_bounds"}
+
+ss_price_metric = {"field": "price", "agg": "sum_of_squares"}
+
+kurtosis_price_metric = {"field": "price", "agg": "kurtosis"}
+
+skewness_price_metric = {"field": "skewness", "agg": "kurtosis"}
+```
+
+## `correlation`
+
+Correlation metric works on fields with `numeric` type, and requires at least 2 fields specified.
+
+```python Python
+correlation_metric = {"fields": ["price", "revenue"], "agg": "correlation"}
+```
+
+## `count`
+
+Count returns the frequency of each groupby, it is returned by default.
+
+```python Python (SDK)
+suburb_count = {"name": "num_suburbs", "field": "propertyDetails.suburb", "agg": "count"}
+```
+
+## `cardinality`
+
+These metrics work on fields with `text` and `numeric` type. Returns the number of unique values in the field.
+
+```python Python
+num_unique_suburbs = {"name": "num_suburbs", "field": "propertyDetails.suburb", "agg": "cardinality"}
+```
