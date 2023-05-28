@@ -1,0 +1,20 @@
+---
+title: "Emotion analysis"
+---
+
+## Emotion
+
+Extract emotions from your text.
+
+```python Python
+text_fields = ["reviews"]
+ds.extract_emotion(text_fields=text_fields)
+```
+
+### Emotion with HuggingFace
+
+You can pass through any emotion analysis model from HuggingFace through the `model_name` to use that model instead.
+
+```python Python
+ds.extract_emotion(text_fields=text_fields, model_name="bhadresh-savani/bert-base-go-emotion")
+```

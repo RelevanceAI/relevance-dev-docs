@@ -1,0 +1,29 @@
+---
+title: "Cluster aggregate"
+description: "How to run a cluster aggregate"
+---
+
+It is often important to identify the characteristics of each cluster. One of the best ways to do this is through an aggregation query that summarises different fields within the cluster.
+
+```python Python (SDK)
+from relevanceai import Client
+
+client = Client(token=YOUR_API_KEY)
+ds = client.Dataset("quickstart")
+
+vector_fields = ["word_vector_"]
+cluster_ops = ds.cluster(vector_fields=vector_fields)
+
+groupby = [
+  {"name": "location", "field": "location", "agg": "text"}
+]
+metrics = [
+  {"name": "avg_price", "field": "price", "agg": "avg"},
+  {"name": "max_price", "field": "price", "agg": "max"},        
+]
+
+result = cluster_ops.aggregate(
+    groupby=groupby,
+    metrics = metrics
+)
+```

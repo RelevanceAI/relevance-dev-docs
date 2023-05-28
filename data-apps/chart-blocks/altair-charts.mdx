@@ -1,0 +1,30 @@
+---
+title: "Altair charts"
+---
+
+## Altair
+
+Make sure you have altair installed with `pip install altair`.  
+You can embed any altair chart simply with `app.altair`:
+
+```python Python
+import altair as alt
+import pandas as pd
+
+df = pd.DataFrame({
+    'a': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+    'b': [28, 55, 43, 91, 81, 53, 19, 87, 52]
+})
+
+fig = alt.Chart(df).mark_bar().encode(
+    x='a',
+    y='b'
+)
+app.altair_plot(fig, title="My simple bar chart")
+```
+
+By default the chart will be an interactive altair chart, to turn off the interactivity and embed just as an image. `static=True`. You'll also need `altair_saver` installed with `pip install altair_saver`.
+
+```python Python
+app.altair_plot(fig, title="My simple bar chart", static=True)
+```

@@ -1,0 +1,32 @@
+---
+title: "Authentication"
+---
+
+To interact with Relevance, you'll need an API Key. Once you've signed up your API key can be found in [https://cloud.relevance.ai/sdk/api/](https://cloud.relevance.ai/sdk/api/).
+
+Each API key is assigned to a region and project. Pick the region that is closest to you for the lowest latency.
+
+Interactive authentication, you will be prompted to provide your api key:
+
+```python Python
+from relevanceai import Client
+
+client = Client()
+#You will be prompted to enter your API Key
+```
+
+Alternatively to authenticate without prompt:
+
+
+```python Python
+from relevanceai import Client
+
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+```
+
+What the [https://cloud.relevance.ai/sdk/api](https://cloud.relevance.ai/sdk/api) page looks like:
+
+Get your Auth Details
+<Frame caption = "Get your Auth Details">
+  <img src="/images/RelevanceAI_auth_token_details.png" />
+</Frame>

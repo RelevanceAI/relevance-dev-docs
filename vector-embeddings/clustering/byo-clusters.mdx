@@ -1,0 +1,36 @@
+---
+title: "Categories to clusters"
+description: "How to bring your own cluster labels by turning categories into clusters."
+---
+
+You can turn your categorical fields into cluster fields, for example here we turn the `brand` category into clusters. 
+
+```python Python 
+from relevanceai import Client 
+client = Client(token=YOUR_TOKEN)
+ds = client.Dataset(dataset_id)
+
+categorical_field = "brand"
+
+vector_fields = ["product_description_vector_"]
+alias = "brand_clusters"
+
+ds.byo_cluster(
+    vector_fields=vector_fields,
+    alias=alias,
+    byo_cluster_field=categorical_field,
+)
+```
+
+By specifying the `vector_fields`, your centroids will be created by taking the average of all the vectors in each `brand` category 
+
+If you have your own centroids, you can provide it instead:
+
+```python Python 
+ds.byo_cluster(
+    vector_fields=vector_fields,
+    alias=alias,
+    byo_cluster_field=categorical_field,
+    centroids=centroids
+)
+```

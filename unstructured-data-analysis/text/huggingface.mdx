@@ -1,0 +1,49 @@
+---
+title: "Huggingface - NER, Summarize, and more"
+---
+
+We provide out of the box integration with [HuggingFace](https://huggingface.co).
+
+## Named Entity Recognition
+
+Extract named entities from text.
+
+```python Python
+from transformers import AutoTokenizer, AutoModelForTokenClassification
+from transformers import pipeline
+
+tokenizer = AutoTokenizer.from_pretrained("dslim/bert-base-NER")
+model = AutoModelForTokenClassification.from_pretrained("dslim/bert-base-NER")
+
+nlp = pipeline("ner", model=model, tokenizer=tokenizer)
+
+ds.apply_transformers_pipeline(
+    text_fields=["review"], pipeline=nlp, output_field="ner"
+)
+```
+
+## Summarize
+
+Summarize long text.
+
+```python Python
+nlp = pipeline("summarization", model="google/pegasus-xsum", tokenizer="google/pegasus-xsum")
+
+ds.apply_transformers_pipeline(
+    text_fields=["review"], pipeline=nlp, output_field="summary"
+)
+```
+
+## Translation
+
+Translate from english to many different languages.
+
+```python Python
+nlp = pipeline("translation_en_to_fr", model="t5-small", tokenizer="t5-small")
+
+ds.apply_transformers_pipeline(
+    text_fields=["review"], pipeline=nlp, output_field="translation"
+)
+```
+
+HuggingFace provides many more other NLP methods to help you enhance your unstructured data: [https://huggingface.co](https://huggingface.co).

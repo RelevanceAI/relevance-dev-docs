@@ -1,0 +1,20 @@
+---
+title: "Plotly charts"
+---
+
+## Plotly
+
+Make sure you have plotly installed with `pip install plotly`.  
+You can embed any plotly chart simply with `app.plotly`:
+
+```python Python
+import plotly.express as px
+fig = px.scatter(x=[0, 1, 2, 3, 4], y=[0, 1, 4, 9, 16])
+app.plotly(fig, title="My Scatter Plot")
+```
+
+By default the chart will be an interactive plotly chart, to turn off the interactivity and embed just as an image. `static=True`. You'll also need `kaleido` installed with `pip install kaleido`.
+
+```python Python
+app.plotly(fig, title="My Scatter Plot", static=True)
+```

@@ -1,0 +1,68 @@
+---
+title: "Supported groupbys"
+---
+
+Each groupby requires a `name`, `field` and `agg`.
+
+* `field` is the field you are aggregating on.
+* `agg` is the type of aggregation you are going to perform.
+* `name` is an field to rename the output of the aggregation.
+
+The groupby's we support are `text` (alias:`category`), `numeric`, `wordcloud`, `array`
+
+## `text`
+
+Works on fields with a `text` type. Groups the field by each unique value, like a category.
+
+```python Python
+{"name": "location", "field": "propertyDetails.area", "agg": "category"}
+```
+
+## Groupby `date` fields
+
+Just add `date_interval` to your `category` aggregate. We support `monthly`, `daily`, `yearly`, `hourly`, `minutely`, `weekly`
+
+```python Python
+{"name": "month", "field": "insert_date_", "agg": "category", "date_interval":"monthly"}
+```
+
+## `numeric`
+
+Works on fields with a `numeric` type.
+
+```python Python
+{"name": "bedrooms", "field": "propertyDetails.bedrooms", "agg": "numeric"}
+```
+
+### bucketing `numeric`
+
+You can bucket numeric in 2 ways:  
+First one is specifying the range:
+
+```python Python{ "name": "bedrooms", "field": "propertyDetails.bedrooms", "agg": "numeric", 
+  "bucket" : [{"from" : 0, "to": 2}, {"from" : 2, "to" 4}, {"from" : 4, "to": 5}] }
+```
+
+Second one is specifying the interval and you can set minimum frequency as well:
+
+```python Python
+{ "name": "bedrooms", "field": "propertyDetails.bedrooms", "agg": "numeric", 
+  "bucket" : {"interval":2, "min_doc_count": 5} }
+```
+
+## `array`
+
+Works on fields with a `numeric`, `text` types. Groups the field by each unique array/list. It will ignore the order of the array and will sort all arrays by alphabetical order.
+
+```python Python
+{"name": "bedrooms", "field": "propertyDetails.tags", "agg": "array"}
+```
+
+## `wordcloud`
+
+Works on fields with a `text` type. Groups the field by each unique word that occurs in the field, great for producing wordclouds. You can also provide it words to remove, via `remove_words=[...]`.
+
+```python Python
+{"name": "bedrooms", "field": "propertyDetails.tags", "agg": "wordcloud", 
+ "remove_words":["this","that"]}
+```

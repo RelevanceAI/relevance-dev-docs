@@ -1,0 +1,24 @@
+---
+title: "Closest to centroids"
+description: "List the documents closest to center"
+---
+
+Centroids from your clustering algorithm describe the 'average' of each cluster. Relevance AI allows you to query for a list of documents that are closest to the centroids of each cluster.
+
+```python Python
+from relevanceai import Client
+
+client = Client(token=YOUR_API_KEY)
+ds = client.Dataset("quickstart")
+
+vector_fields = ["word_vector_"]
+cluster_ops = ds.cluster(vector_fields=vector_fields)
+
+cluster_ops.list_closest()
+```
+
+You can also list furthest from centroid
+
+```python Python 
+cluster_ops.list_furthest()
+```

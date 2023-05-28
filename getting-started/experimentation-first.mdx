@@ -1,0 +1,64 @@
+---
+title: "Experimentation first"
+description: "Benefits of better experimentation"
+---
+
+## Issues with current vector database solutions
+
+While vector databases are used to power recommendations and search engines - they are ultimately still data science products, which mean they require constant iteration, analysis and feedback to improve. However, modern vector databases are not very easy to experiment with.
+
+### Why are vector databases not easy to experiment with?
+
+<Frame caption="Typical Vector Database Workflow">
+  <img src="/images/RelevanceAI_vectorbase_workflow.png" />
+</Frame>
+
+Vector databases are at their core - designed for production-level purposes without enabling the developers to first test which vectors work best for their purposes.
+
+<Warning>
+**Vectors require a significant amount of finetuning, experimentation and testing.**
+
+Vectors/embeddings rarely work as well as we want out of the box. They often require careful model selection, fine-tuning to a specific domain, access to experiment with different search methods and clever data processing to ensure they are successful.
+</Warning>
+
+
+Naturally, when you are experimenting with vector databases, you will come across a number of problems:
+
+* **Model-related problems:**  
+   * What model do you choose to start with for your data?  
+   * Was this model trained well and with the proper pre-training and fine-tuning steps?  
+   * Which layer of the model works best for your application?  
+   * Does continuing pretraining on your model allow you to improve on your dataset?
+* **Search-related problems:**  
+   * What if you have ID values (e.g. "BYX253") where vectors traditionally fail - can you have it in one search? How much weighting is applied to exact text matching?  
+   * How does it handle acronyms and long-tail searches?  
+   * What if you want to apply different filters for different searches?  
+   * What if you want to combine search results from different fields (for example - the title of an article can be just as important as the description or section headers or maybe you want to reduce the weighting of section headers in preference for the title?)
+* **Machine learning problems:**  
+   * Are there unsupervised techniques to assist with better vectors?  
+   * How does the vector space represent the data and is it biased or skewed?  
+   * How does the vector space alter when you finetune with metric learning approaches?
+
+While these range from model problems to data problems, one thing is clear:
+
+<Check>
+👍 **The quality of your embeddings is proportional to the number of experiments you are able to try.**
+ 
+ An experimentation-first vector database allows developers to do just that - iterate on their vectors.
+</Check>
+
+## Relevance AI's provides an experimentation-first vector database
+
+<Frame caption="Experimentation-first Vector Database Workflow">
+  <img src="/images/RelevanceAI_experimentation_first_example_flow.png" />
+</Frame>
+
+Through our experience in developing vector-based applications, we understand the current vector search workflow and want to ensure practitioners and researchers are able to use the best model and best data for their searching/recommending/identification of nearest neighbors.
+
+At a high level, a good vector database comprises a few components:
+
+* First-class metadata storage with the vectors
+* Infrastructure to help compare vector search results
+* Flexible vector search querying to allow you to search across multiple models and multiple fields in 1 line of code
+* Good integration and support with traditional search/hybrid search functionalities
+* Support for more complex data structures for your vectors to capture structural complexity

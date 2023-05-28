@@ -1,0 +1,30 @@
+---
+title: "Parent-Child Relationships"
+---
+
+With so much relevant data being extracted, it is important to be able to store the parent-child relationships between input fields and output fields. This allows us to list the relevant fields when analyzing a text field. 
+
+For example:
+
+## Storing Parent Child Relationships
+
+```python Python
+from relevanceai import Client 
+client = Client()
+ds = client.Dataset("sample")
+ds.update_field_children(
+  field="text_field",
+  field_children=["text_sentiment"],
+  category="sentiment",
+  metadata={"model": "Social Media Model"}
+)
+```
+
+If you are interested in the API documentation for parent-child relationships, you can find them here 
+
+## Listing Parent Child Relationships
+
+```python Python
+# Simple way to list all available field children!
+ds.list_field_children()
+`

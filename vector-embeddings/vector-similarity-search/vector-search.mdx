@@ -1,0 +1,88 @@
+---
+title: "Vector search"
+---
+
+## Simple vector search
+
+```python Python
+from relevanceai import Client
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+ds = client.Dataset("quickstart")
+
+search_query = [
+    { "vector": [0.1, 0.2, 0.3], "field": "word_vector_"}
+]
+results = ds.search(
+    vector_search_query=search_query,
+)
+```
+
+Just like retrieve documents you can select which fields to include with `select_fields=[...]`, or remove vectors from the reponse `include_vector=False`.
+
+```python Python
+search_query = [
+    { "vector": [0.1, 0.2, 0.3], "field": "word_vector_"}
+]
+results = ds.search(
+    vector_search_query=search_query,
+    select_fields=["word"],
+    include_vector=False,
+)
+```
+
+### Combine with filters
+
+```python Python
+filters = ds["price"] > 20
+
+results = ds.search(
+    vector_search_query=search_query,
+        filters=filters,
+)
+```
+
+### Combine with traditional text search
+
+Combining vector search with traditional text search can often create the best results. For example, vector search isn't great at matching SKUs such as "KFR-123".
+
+```python Python
+text_query = "Awesome"
+results = ds.search(
+    vector_search_query=search_query,
+    query=text_query,
+    fields_to_search=["text"],
+)
+```
+
+You can also perform a traditional search without vectors
+
+```python Python
+text_query = "Awesome"
+results = ds.search(
+    query=text_query,
+    fields_to_search=["text"],
+)
+```
+
+### Minimum relevance score
+
+You can set a minimum score for results to be shown.
+
+```python Python
+results = ds.search(
+    vector_search_query=search_query,
+    minimum_relevance=0.3
+)
+```
+
+### Sort results
+
+Just like retrieving documents, you can sort the order of the results as well. By default it is by `relevance`.  
+`desc` for descending order, `asc` for ascending order.
+
+```python Python
+results = ds.search(
+    vector_search_query=search_query,
+    sort=[{"price":"desc"}]
+)
+```

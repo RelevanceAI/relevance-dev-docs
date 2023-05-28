@@ -1,0 +1,86 @@
+---
+title: "Retrieving data"
+---
+
+## Retrieving documents by their ids
+
+```python Python 
+from relevanceai import Client
+
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+ds = client.Dataset("quickstart")
+
+ids_to_retrieve = ["1", "2"]
+ds.get(ids_to_retrieve)
+```
+
+ids that don't belong in the dataset will just return a document with just the `_id`.
+
+## Retrieve a random sample of documents
+
+```python Python 
+ds.get_documents(number_of_documents=20)
+```
+
+## Retrieve all documents
+
+```python Python 
+ds.get_all_documents()
+```
+
+## Retrieve documents options
+
+You can freely adjust how the retrieve documents are returned.
+
+### Selected fields only
+
+For all the above retrieve functions, you can choose which fields to include when retrieving the documents.
+
+```python Python 
+ds.get_documents(number_of_documents=20, select_fields=["name", "reviews.rating"])
+```
+
+By default we return all the vectors, but you can choose to remove them simply with `include_vector=False`
+
+```python Python 
+ds.get_documents(number_of_documents=20, include_vector=False)
+```
+
+### Sort documents
+
+You can sort documents by different fields as well `desc` for descending order, `asc` for ascending order.
+
+```python Python 
+ds.get_documents(sort=[{"reviews.rating":"desc"}])
+```
+
+The sort is multi-level as well, to further sort documents with same values.
+
+```python Python 
+ds.get_documents(sort=[{"reviews.rating":"desc"}, {"reviews.numHelpful":"desc"}])
+```
+
+### Filter documents
+
+You can retrieve documents that meet your filter criteria. Below is the simple way of doing it.
+
+```python Python 
+filters = ds["name"] == "Fire Tablet, 7 Display, Wi-Fi, 8 GB - Includes Special Offers, Magenta"
+ds.get_documents(number_of_documents=20, filters=filters)
+```
+
+For the more advanced filtering options:
+
+```python Python 
+filters = [
+    {
+        "field": "name",
+        "filter_type": "exact_match",
+        "condition": "==",
+        "condition_value": "Fire Tablet, 7 Display, Wi-Fi, 8 GB - Includes Special Offers, Magenta"
+    }
+]
+ds.get_documents(number_of_documents=20, filters=filters)
+```
+
+For more filter options check out: [Filters](/general/filters)

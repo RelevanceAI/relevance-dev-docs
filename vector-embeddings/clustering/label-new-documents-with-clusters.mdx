@@ -1,0 +1,19 @@
+---
+title: "Label new documents with clusters"
+description: "Assigning new documents cluster labels"
+---
+
+You can label new documents with cluster labels by specifying a `field_transformers` whilst inserting documents:
+
+```python Python
+ds.insert_documents(
+  documents=documents,
+  field_transformers=[{
+    "field" : "text_vector_",
+    "assign_to_cluster": { 
+      "alias" : "kmeans-60",
+    },
+    "output_field" : "_cluster_.text_vector_.kmeans-60"
+  }]
+)
+```

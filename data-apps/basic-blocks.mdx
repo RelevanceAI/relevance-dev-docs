@@ -1,0 +1,97 @@
+---
+title: "Basic blocks"
+---
+
+Blocks are essentially content, every time you add a paragraph, image or chart that's a block. There are many different kind of blocks, some blocks can contain other blocks. A page is a combination of different blocks you add to it.
+
+## `h1`, `h2`, `h3`
+
+```python Python
+.h1("Big sized Heading")
+app.h2("Medium sized Heading")
+app.h3("Medium sized Heading")
+```
+
+## `paragraph`
+
+`paragraph` is also aliased by `p`
+
+```python Python
+app.p("A paragraph")
+app.paragraph("A paragraph")
+```
+
+## `quote`
+
+```python Python
+app.quote("This is a quote")
+```
+
+## `code`
+
+You can set the language to change how the coloring is done.
+
+```python Python
+app.code("""
+import numpy as np
+np.array([1,2,3])
+""", language="python")
+```
+
+## `tooltip`
+
+Shows a tooltip when you hover over a text.
+
+```python Python
+app.tooltip(app.p("RMSE"), tooltip_text="Root Mean Squared Error")
+```
+
+## `space`
+
+Add a blank space of any height to your app.
+
+```python Python
+app.space(height=60)
+```
+
+## `ordered_list`, `bullet_list`
+
+```python Python
+app.ordered_list(
+    ["order 1", "order 2"]
+)
+
+app.bullet_list(
+    ["bullet 1", "bullet 2"]
+)
+```
+
+## `details`, `card`
+
+```python Python
+app.details(
+    title_content=app.h1("RMSE"),
+    contents=[
+        "Root Mean Squared Error
+    ]
+)
+```
+
+## `columns`
+
+```python Python
+app.columns([
+        app.p("Column 1"),
+    app.p("Column 2")
+], num_columns=2)
+```
+
+## `image`, `audio`, `video`
+
+You embed images, audios and video from a url, local file or bytes.
+
+```python Python
+app.image("example_image.png", title="Example image", width_percentage=100)
+app.audio("example_audio.wav", title="Example audio", width_percentage=100)
+app.video("example_video.mp4", title="Example video", width_percentage=100)
+```

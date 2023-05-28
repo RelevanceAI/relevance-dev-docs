@@ -1,0 +1,48 @@
+---
+title: "Dataset connected charts"
+---
+
+This will require prerequesite knowledge of [aggregations](/general/aggregations/aggregations)
+
+## Connected charts
+
+For quick and simple aggregation in connected charts you can simply just specify the fields you want to groupby and metrics (defaults to average).
+
+```python Python
+app.connected_chart(groupby=[], metrics=["price"])
+```
+
+For more advanced aggregations:
+
+```python Python
+groupby = [
+  {"name": "location", "field": "location", "agg": "text"}
+]
+metrics = [
+  {"name": "avg_price", "field": "price", "agg": "avg"},
+  {"name": "max_price", "field": "price", "agg": "max"},        
+]
+
+app.connected_chart(groupby=groupby, metrics=metrics)
+```
+
+You can specify the chart type as well, we currently support: `column`, `bar`, `line`, `scatter`, `timeseries`
+
+```python Python
+app.connected_chart(groupby=groupby, metrics=metrics, chart_mode="bar")
+```
+
+You can specify the `title`, `page_size`, `sort`, and whether to not `show_frequency` as well
+
+```python Python
+app.connected_chart(
+  groupby=groupby, 
+  metrics=metrics, 
+  title="My Chart",
+  page_size=20, 
+  sort={"avg_price":"desc"}, 
+  show_frequency=False
+)
+```
+
+`sort` needs to be in the format of a dictionary `{metric_name : "desc" or "asc"}` or a string `metric_name`.

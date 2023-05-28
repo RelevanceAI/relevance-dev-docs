@@ -1,0 +1,38 @@
+---
+title: "Extracting Vectors from Pretrained Pytorch Models"
+---
+
+## Using FeatureExtractor
+
+Say you have trained a resnet model for a classification task and you would like to extract the 2nd last layer/pooling layer to turn your classification model into a vectorizer. You can do so with the `FeatureExtractor`
+
+
+```python Python 
+import torch
+import torchtext
+import torchvision
+
+from relevanceai.operations_new.processing.feature_extractor import FeatureExtractor
+
+x = torch.randn(10, 3, 224, 224)
+model = torchvision.models.resnet34()
+
+fx = FeatureExtractor(model, layer_name="avgpool")
+
+vectors = fx(x) # vectors of samples passed through model exitting from avgpool layer
+```
+
+## Using EmbeddingsExtractor
+
+If instead you are working with text/embedding model and would like to extract vectors from the just the embedding layers themselves, then you would use `EmbeddingsExtractor`
+
+
+```python Python 
+from relevanceai.operations_new.processing.feature_extractor import EmbeddingsExtractor
+
+x = torch.tensor([1, 4, 78, 34, 234, 2, 0, 0, 0, 0, 0])
+model = torchtext.models.RobertaModel(torchtext.models.roberta.RobertaEncoderConf())
+
+fx = EmbeddingsExtractor(model)
+vectors = fx(x) # vectors associated with tokens in x
+```

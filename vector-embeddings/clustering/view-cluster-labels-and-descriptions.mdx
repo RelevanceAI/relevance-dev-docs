@@ -1,0 +1,24 @@
+---
+title: "View Cluster Labels And Descriptions"
+description: "View your cluster labels and descriptions"
+---
+
+You can now view your cluster labels and descriptions. 
+<Note>
+📘 **Feature is only available in versions 2.6.5 and above.**
+</Note>
+
+
+```python Python
+cluster_ops = client.ClusterOps(
+  dataset_id="reddit", 
+  vector_fields=["text_mpnet_vector_"],
+  alias="kmeans-20"
+)
+# To get a JSON output
+cluster_ops.labels
+
+# To get a nice pretty print 
+import pandas as pd
+pd.DataFrame(cluster_ops.labels)
+```

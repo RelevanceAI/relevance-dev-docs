@@ -1,0 +1,67 @@
+---
+title: "Notebook and script"
+---
+
+One of the great advantages of Relevance's report app is that it allows you to create apps in both:
+
+* a production setting via scripts
+* an explorative setting via notebooks
+
+## Production via scripts
+
+Create a script such as `app.py`. Decide on an id so that everytime the script is ran it updates the same app as opposed to creating a new one.
+
+```python Python
+from relevanceai import Client
+from relevanceai.apps import ReportApp
+client = Client(token=YOUR_AUTH_TOKEN)
+
+if __name__ == "__main__":
+    app = ReportApp(name="My App", dataset=ds, deployable_id="123456")
+    app.reset()
+    app.h1("My first app")
+    app.p("Creating my first app")
+    app.deploy()
+```
+
+After that run `python app.py` in your command line and It'll create the app and the link to the app. 
+
+## Explorative via Notebooks
+
+Creating apps explorative can be a great way to see how you want your app to look before deploying it and quickly saving insights you've found through your analysis.
+
+Scripts everytime you make an incremental change with scripts, your whole script will need to be reran to see the update. Where as notebooks allow for more exploratory creation of apps via incremental changes.
+
+```python Python
+from relevanceai.apps import ReportApp
+client = Client(token=YOUR_AUTH_TOKEN)
+app = ReportApp(name="My App", dataset=ds, deployable_id="123456")
+app.h1("My First app")
+```
+
+After this you can continue your usual data analysis in this case create an altair stacked bar chart of barley data.
+
+```python Python
+import altair as alt
+from vega_datasets import data
+
+source = data.barley()
+
+alt.Chart(source).mark_bar().encode(
+    x='sum(yield)',
+    y='variety',
+    color='site',
+    order=alt.Order(
+      # Sort the segments of the bars by this field
+      'site',
+      sort='ascending'
+    )
+)
+```
+
+You can now embed that chart within your app, and it will be added to your existing app.
+
+```python Python
+app.altair(fig)
+app.deploy()
+```

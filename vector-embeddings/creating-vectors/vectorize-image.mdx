@@ -1,0 +1,35 @@
+---
+title: "Image vector embeddings"
+---
+
+## Use CLIP a multi-modal vectorizer
+
+Our default vectorizer is using `CLIP` from OpenAI. CLIP vectorize image or text into same space. This enables functionalities such as text to image search.  
+Lets first install `clip` first.
+
+```shell Shell
+pip install git+https://github.com/openai/CLIP.git
+```
+
+Once installed you can vectorize any image fields. You vectorize multiple fields at once. Your image fields needs to be a `url` of an image file. If your images are in your local file system, upload those files first with [Inserting files](/docs/python-inserting-files).
+
+```python Python 
+image_fields = ["image_url"]
+ds.vectorize_image(fields=image_fields)
+```
+
+## Use BIT from TFHub
+
+A image model from [Google](https://tfhub.dev/google/bit/m-r50x1/1). Great for reverse image search. 
+
+```python Python 
+ds.vectorize_image(fields=["thumbnail"], models=["m-r50x1"])
+```
+
+### Filter and Vectorize
+
+You can also filter the images you want vectorized.
+
+```python Python 
+ds.vectorize_image(fields=image_fields, filters=filters)
+```

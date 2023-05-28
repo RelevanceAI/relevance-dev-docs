@@ -1,0 +1,88 @@
+---
+title: "Quickstart - Analyze text"
+description: "Analyzing text with our python SDK and frontend dashboard."
+---
+
+In this quickstart we will show you how you can quickly analyze text with Relevance. The data provided is review data of an ecommerce store. With Relevance you can achieve the following:
+
+* **Automatically categorize data via clustering.** Grouping similar reviews to get a quick overview of the reviews.
+* **Search against the data, both semantically and traditionally.** Finding insights by context and keywords.
+* **Drilldown with filters.** Find trends in customer segments.
+* **Create charts with aggregates.** Visualize trends with charts.
+* **Extract keywords, sentiment and emotions.** Enhance the data with more metrics and segments.
+* **Label the text dynamically.** Categorize data without training with your own provided labels.
+
+## 1\. Install Relevance and instantiate client
+
+First install Relevance AI with models which comes with SentenceTransformers (default vectorizer to create text embeddings).
+
+```shell Shell
+pip install RelevanceAI[models]
+```
+
+After installation, lets instantiate a client. You will need an API key, which can be found in [https://cloud.relevance.ai/sdk/api/](https://cloud.relevance.ai/sdk/api/).
+
+```python Python
+from relevanceai import Client
+
+# You will be prompted to enter your API KEY
+client = Client()
+```
+
+<Frame caption="Get your Auth Details">
+  <img src="/images/RelevanceAI_auth_token_details.png" />
+</Frame>
+
+
+
+## 2\. Insert data
+
+Lets create a dataset and insert some data into it. In this quickstart we provide a retail review dataset as an example.
+
+```python Python
+from relevanceai.utils import example_documents
+
+documents = example_documents("retail_reviews_small", number_of_documents=100)
+```
+
+Here we create the dataset and insert the data into it. Data is stored as JSON Documents in Relevance thus from the sdk we insert list of python dictionaries as data. For more information about this [Inserting data](/general/creating-a-dataset/inserting-data).
+
+```python Python
+ds = client.Dataset("quickstart")
+ds.insert_documents(documents)
+```
+
+You can also insert pandas dataframe via `ds.insert_df(df)`
+
+Lets quickly preview the data. You can also view this on [https://cloud.relevance.ai/dataset/quickstart/dashboard/data?return=datasets](https://cloud.relevance.ai/dataset/quickstart/dashboard/data?return=datasets).
+
+```python Python
+ds.head()
+```
+
+## 3\. Analyze text
+
+This will run a whole range of text analysis models: `vectorize`, `cluster`, `sentiment`, `keyword_extraction`, etc...
+
+```python Python
+text_fields = ["reviews.text"]
+ds.analyze_text(fields=text_fields)
+```
+
+Lets check the new dataset schema. You can also view this on [https://cloud.relevance.ai/dataset/quickstart/dashboard/monitor/?return=datasets](https://cloud.relevance.ai/dataset/quickstart/dashboard/monitor/?return=datasets).
+
+```python Python
+ds.schema
+```
+
+We can see many new fields are created.
+
+## 4\. Explore the analysis and find insights
+
+Now lets explore the analysis.
+
+```python Python 
+ds.launch_explore_app()
+```
+
+This will return a link to [https://cloud.relevance.ai/dataset/quickstart/deploy/recent/explore](https://cloud.relevance.ai/dataset/quickstart/deploy/recent/explore).

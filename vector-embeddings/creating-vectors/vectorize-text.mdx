@@ -1,0 +1,47 @@
+---
+title: "Text vector embeddings"
+description: "Out of the box support with Transformers and Similarity AI."
+---
+
+Our default vectorizer is using `all-mpnet-base-v2` from [SentenceTransformers](https://www.sbert.net/). So we have to install `sentence-transformers` first.
+
+```shell Shell
+pip install -U relevanceai[models]
+```
+
+Once installed you can vectorize any text fields. You vectorize multiple fields at once.
+
+```python Python 
+text_fields = ["text"]
+ds.vectorize_text(fields=text_fields)
+```
+
+The vector fields outputted will be `text_sentence-transformers_all-mpnet-base-v2`. To output it to a different field name use `output_fields=[..]`.
+
+```python Python 
+ds.vectorize_text(fields=["reviews.text"], output_fields=["text_vector_"])
+```
+
+### You can also provide any HuggingFace or SentenceTransformers models.
+
+```python Python 
+ds.vectorize_text(
+    models=["sentence-transformers/all-distilroberta-v1",
+           "princeton-nlp/sup-simcse-roberta-large"],
+    fields=text_fields
+)
+```
+
+The vector fields outputted will be `text_sentence-transformers_all-distilroberta-v1` and `text_princeton-nlp_sup-simcse-roberta-large`.
+
+### Lightning fast server side vectorize with Similarity
+
+You can vectorize with lightning fast Similarity AI's inference server with pretrained models, first signup via [https://similarity.ai](https://similarity.ai).
+
+### Filter and Vectorize
+
+You can also filter the text you want vectorized.
+
+```python Python 
+ds.vectorize_text(fields=text_fields, filters=filters)
+```

@@ -1,0 +1,18 @@
+---
+title: "Text"
+---
+
+Analyzing text is as simple as a single line of code.
+
+```python Pythonfrom relevanceai import Client
+
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+ds = client.Dataset("customer_reviews")
+
+text_fields = ["reviews"]
+ds.analyze_text(fields=text_fields)
+```
+
+This will run a whole range of text analysis models: `vectorize`, `cluster`, `sentiment`, `keyword_extraction`, etc...
+
+If you want to configure each one individually. The next sections will show you how.

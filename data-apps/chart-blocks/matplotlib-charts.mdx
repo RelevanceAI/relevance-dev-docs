@@ -1,0 +1,33 @@
+---
+title: "Matplotlib charts"
+---
+
+## Pyplot
+
+You can embed any matplotlib pyplot chart simply with `app.pyplot`:
+
+```python Python
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+ax.plot([1, 2, 3, 4], [1, 4, 2, 3])
+app.pyplot(fig, title="My simple line chart")
+```
+
+By default the chart will be an interactive altair chart, to turn off the interactivity and embed just as an image. `static=True`. You'll also need `altair_saver` installed with `pip install altair_saver`.
+
+## Seaborn
+
+You can also embed any seaborn chart as well:
+
+```python Python
+import seaborn as sns
+
+tips = sns.load_dataset("tips")
+fig = sns.relplot(
+    data=tips,
+    x="total_bill", y="tip", col="time",
+    hue="smoker", style="smoker", size="size",
+)
+app.pyplot(fig)
+```

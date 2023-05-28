@@ -1,0 +1,60 @@
+---
+title: "Label"
+description: "Label with vector based zeroshot classifcation"
+---
+
+You can label data without any training. The labels also can be any length, words or sentences. 
+
+The labels your provide needs to be in a document (list of dictionaries) format. You can also include other information besides the label to assign to your dataset.
+
+```python Python 
+from relevanceai import Client
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+ds = client.Dataset("quickstart")
+
+labels = [
+    {
+        "label": "Phone",
+        "label_vector_": [1, 2, 1, 2, 1],
+        "price_type" : "high"
+    },
+    {
+        "label": "Food",
+        "label_vector_": [1, 1, 1, 1, 1]
+        "price_type" : "low"
+    }
+]
+
+ds.label(
+    vector_fields=["text_vector_"],
+    label_documents=labels,
+    output_field="label",
+    expanded=True,
+)
+```
+
+If you just want a list of tags and not extra information, set `expanded=False`
+
+You can change the `max_number_of_labels` and `similarity_threshold` to make sure you get the most appropriate labels.
+
+```python Python 
+ds.label(
+    vector_fields=["text_vector_"],
+    label_documents=labels,
+    output_field="label",
+    max_number_of_labels=2,
+    similarity_threshold=0.2,
+    expanded=False
+)
+```
+
+Just like many functionality in Relevance, you can also combine filters with label.
+
+```python Python 
+ds.label(
+    vector_fields=["text_vector_"],
+    output_field="label",
+    label_documents=labels,
+    filters=filters
+)
+```

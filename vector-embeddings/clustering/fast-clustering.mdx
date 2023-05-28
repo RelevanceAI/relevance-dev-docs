@@ -1,0 +1,62 @@
+---
+title: "Fast clustering"
+description: "How to perform fast clustering with custom classes."
+---
+
+Relevance AI supports the integration of custom clustering algorithms. The custom algorithm can be created as the `fit_predict` method of the `ClusterBase` class. Allowing you to use much faster clustering libraries such as FAISS, cuML.
+
+## Fast KMeans clustering
+
+Here we create a custom class with FAISS.
+
+First, lets install faiss, if you are on GPU.
+
+```shell Shell 
+pip install faiss-gpu
+```
+
+otherwise if you are on CPU.
+
+```shell Shell 
+pip install faiss
+```
+
+Now, lets create the class.
+
+```python Python
+import numpy as np
+from faiss import Kmeans
+from relevanceai import CentroidClusterBase
+
+class FaissKMeans(CentroidClusterBase):
+    def __init__(self, model):
+        self.model = model
+
+    def fit_predict(self, vectors):
+        vectors = np.array(vectors).astype("float32")
+        self.model.train(vectors)
+        cluster_labels = self.model.assign(vectors)[1]
+        return cluster_labels
+
+    def metadata(self):
+        return self.model.__dict__
+
+    def get_centers(self):
+        return self.model.centroids
+```
+
+Finally you can feed it in `ds.cluster` normally.
+
+```python Python
+from relevanceai import Client
+client = Client(token=YOUR_API_KEY)
+ds = client.Dataset('quickstart')
+
+n_clusters = 10
+vector_length = 512
+alias = f"faiss_{n_clusters}"
+vector_fields = ['text_vector_']
+
+model = FaissKMeans(model=Kmeans(d=vector_length, k=n_clusters))
+ds.cluster(model=model, vector_fields=vector_fields, alias=alias)
+```

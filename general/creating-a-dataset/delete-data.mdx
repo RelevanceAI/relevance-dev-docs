@@ -1,0 +1,30 @@
+---
+title: "Delete data"
+---
+
+## Deleting a dataset
+
+Deleting a dataset will also delete any associated clusters, metadata, S3 files belonging to the dataset as well.
+
+```python Python 
+from relevanceai import Client
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+client.delete_dataset("test-data-1")
+```
+
+Another way of deleting a dataset
+
+```python Python 
+ds = client.Dataset("test-data-2")
+ds.delete()
+```
+
+## Deleting documents
+
+You can delete documents in your dataset by its ids.
+
+```python Python 
+ids_to_delete = ["1", "2", "5"]
+
+ds.delete_documents(ids_to_delete)
+```

@@ -1,0 +1,38 @@
+---
+title: "Searching with multiple vectors"
+description: "Using multi-vector search with multiple models"
+---
+
+Multi-vector search offers a more powerful and more flexible search by combining several vectors across different fields and vectorizers, allowing us to experiment with more combinations of models and configurations.
+
+## Simple multi-vector search
+
+With Relevance you can search with multiple vectors against multiple different fields.
+
+### Searching with multiple vectors from different models
+
+```python Python
+search_query = [
+    { "vector": [0.1, 0.2, 0.3], "field": "word_vector_"},
+    { "vector": [0.33, 0.44, 0.55, 0.66, 0.77], "field": "image_vector_"}
+]
+results = ds.search(
+    vector_search_query=search_query,
+)
+```
+
+Can also be used to search against multiple different fields that belong to the same vector space.
+
+### Weighted multi-vector search
+
+You can change the weights of different vectors as well.
+
+```python Python
+search_query = [
+    { "vector": [0.1, 0.2, 0.3], "field": "word_vector_", "weight": 0.4},
+    { "vector": [0.33, 0.44, 0.55, 0.66, 0.77], "field": "image_vector_", "weight":0.6}
+]
+results = ds.search(
+    vector_search_query=search_query,
+)
+```

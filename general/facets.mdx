@@ -1,0 +1,36 @@
+---
+title: "Facets"
+---
+
+To construct create guides for filters you'll need facets, an overview of a field. Below is a table of what is outputted by facets for different field types.
+
+| **Type** | **What it does**                                                                            |
+| -------- | ------------------------------------------------------------------------------------------- |
+| Text     | Gets all the different text frequencies                                                     |
+| Numeric  | Gets the min, max, sum and average.                                                         |
+| Date     | Gets all the different frequencies across either `hourly`, `daily`, `monthly`, `yearly` can be set. |
+| Boolean  | Gets the frequency of both `true` and `false`.                                                  |
+
+Grab facets for all available fields:
+
+```python Python
+from relevanceai import Client
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+ds = client.Dataset("quickstart")
+
+ds.facets()
+```
+
+You can specify which fields to get facets from and paginate it.
+
+```python Python
+ds.facets(["brand"], page=1, page_size=10)
+```
+
+You can change how date `facets` are handled. Available intervals are `hourly`, `daily`, `monthly`, `yearly`.
+
+```python Python
+ds.facets(["insert_date_"], date_interval="hourly")
+```
+
+To customize your facets further, go to the next section [Aggregations](/general/aggregations/aggregations).
