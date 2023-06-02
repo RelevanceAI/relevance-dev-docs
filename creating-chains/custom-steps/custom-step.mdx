@@ -108,11 +108,14 @@ def transform_func(prompt):
 def gpt2_api(commons: GPT2Params):
     return transform_func(commons.prompt)
 
-import nest_asyncio
 #add this for ngrok
 from pyngrok import ngrok
 PUBLIC_URL = ngrok.connect(8000).public_url
 print('Public URL:', PUBLIC_URL)
+
+#add this for notebook
+#import nest_asyncio
+#nest_asyncio.apply()
 
 #add this
 from llmbda_fastapi import create_chains
