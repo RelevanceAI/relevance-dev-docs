@@ -38,7 +38,7 @@ ds.search(text="vroom", page_size=1)
 
 ## Changing models
 Lets change the model to "text-embedding-ada-002":
-```
+```python Python
 ds.insert(
     documents=[
         {"_id": "doc1", "text": "tiger", "category": "land"},
@@ -53,7 +53,7 @@ ds.insert(
 )
 ```
 We support these models ['image_text', 'text_image', 'all-mpnet-base-v2', 'clip-vit-b-32-image', 'clip-vit-b-32-text', 'clip-vit-l-14-image', 'clip-vit-l-14-text', 'sentence-transformers', 'text-embedding-ada-002', 'cohere-small', 'cohere-large', 'cohere-multilingual-22-12']:
-```
+```python Python
 ds.search(text="vroom", model="text-embedding-ada-002")
 ```
 
