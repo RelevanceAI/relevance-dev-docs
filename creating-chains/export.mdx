@@ -1,0 +1,16 @@
+---
+title: "Export the chain"
+---
+You can export the chain to a json file:
+```
+chain.to_json()
+```
+or a dictionary:
+```
+chain.to_json(return_json=True)
+```
+You can import the chain:
+```
+from relevanceai import load_from_json
+load_from_json(json_fp_or_json)
+```

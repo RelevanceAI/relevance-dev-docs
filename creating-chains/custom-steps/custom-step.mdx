@@ -4,7 +4,7 @@ title: "Getting started"
 
 ## Deploying with FastAPI
 
-### Add your fastapi endpoints to your Relevance Notebook for chaining.
+### Add your fastapi endpoints for chaining.
 
 1. Install:
 
@@ -17,6 +17,7 @@ pip install llmbda_fastapi
 ```
 SET RELEVANCE_API_KEY=xxx
 SET RELEVANCE_REGION=xxx
+SET RELEVANCE_PROJECt=xxx
 ```
 
 or
@@ -24,11 +25,12 @@ or
 ```
 export RELEVANCE_API_KEY=xxx
 export RELEVANCE_REGION=xxx
+export RELEVNACE_PROJECT=xxx
 ```
 
 3. Include these 2 lines of code:
 
-```
+```python Python
 PUBLIC_URL = "https://whereyourapiishosted.com/"
 
 from fastapi import FastAPI
@@ -44,7 +46,7 @@ If you are working off a local computer you can use ngrok to create a public url
 pip install pyngrok
 ```
 
-```
+```python Python
 from fastapi import FastAPI
 app = FastAPI()
 
@@ -56,34 +58,66 @@ PUBLIC_URL = ngrok.connect(8000).public_url
 from llmbda_fastapi import create_transformations
 create_transformations(app.routes, PUBLIC_URL)
 ```
+Add nest_asyncio if you are in a notebook environment.
 
-4. Add these options to your existing api endpoints, for example this is a endpoint to "Run code in your local environment"
-
+```python Python
+import nest_asyncio
+nest_asyncio.apply()
 ```
+
+4. Add these options to your existing api endpoints, for example this is a endpoint to "Run GPT2"
+```
+pip install transformers
+```
+Full code:
+
+```python Python
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import APIRouter, Query
 from pydantic import BaseModel
 from llmbda_fastapi.frontend import input_components
+app = FastAPI()
 
-router = APIRouter()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
 
-#Optionally specify frontend_component to make this input be displayed as a specific frontend component
-class ExecuteCodeParams(BaseModel):
-    code : str = Query(..., description="Code to run", frontend=input_components.LongText())
-    #the name and description of this will be automatically picked up and displayed in the notebook
+from transformers import pipeline, set_seed
+gpt2_model = pipeline('text-generation', model='gpt2')
+set_seed(42)
 
-class ExecuteCodeResponseParams(BaseModel):
-    results : str = Query(" ", description="Return whats printed by the code")
+from llmbda_fastapi.frontend import upload
+from typing import List
 
-# This is the actual transformation
-def evaluate_code(code):
-    print("Executing code: " + code)
-    output = eval(code)
-    print(output)
-    return {"results" : str(output)}
 
-# This is the API endpoint for the transformation
-# The name and description of this will be automatically picked up and displayed in the notebook. Make sure to set response_model and query parameters if they are required.
-@router.post("/run_code", name="Run Code", description="Run Code Locally - Test", tags=["coding"], response_model=ExecuteCodeResponseParams)
-def run_code_api(commons: ExecuteCodeParams):
-    return evaluate_code(commons.code)
+class GPT2Params(BaseModel):
+    prompt : str = Query(..., description="Prompt", frontend=input_components.LongText())
+
+class GPT2ResponseParams(BaseModel):
+    results : List[str] = Query(" ", description="Return GPT2 generated text completion")
+
+def transform_func(prompt):
+    return {"results" : [t['generated_text'] for t in gpt2_model(prompt)]}
+
+@app.post("/gpt2", name="Run GPT2", description="Run GPT2", response_model=GPT2ResponseParams)
+def bark_api(commons: GPT2Params):
+    return transform_func(commons.prompt)
+
+import nest_asyncio
+#add this for ngrok
+from pyngrok import ngrok
+PUBLIC_URL = ngrok.connect(8000).public_url
+print('Public URL:', PUBLIC_URL)
+
+#add this
+from llmbda_fastapi import create_chains
+create_chains(app.routes, PUBLIC_URL)
+
+import uvicorn
+uvicorn.run(app, port=8000)
 ```

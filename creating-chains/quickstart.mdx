@@ -32,52 +32,7 @@ llm = PromptCompletion(
 )
 llm.run()
 ```
-We currently support these models:
-```
-"enum": [
-  {
-    "description": "GPT 3.5 (OpenAI)",
-    "value": "openai-gpt35"
-  },
-  {
-    "description": "GPT 4 (OpenAI)",
-    "value": "openai-gpt4"
-  },
-  {
-    "description": "Claude Instant (Anthropic)",
-    "value": "anthropic-claude-instant-v1"
-  },
-  {
-    "description": "Claude (Anthropic)",
-    "value": "anthropic-claude-v1"
-  },
-  {
-    "description": "Claude Instant 100k (Anthropic)",
-    "value": "anthropic-claude-instant-v1-100k"
-  },
-  {
-    "description": "Claude 100k (Anthropic)",
-    "value": "anthropic-claude-v1-100k"
-  },
-  {
-    "description": "PaLM Chat Bison (Google)",
-    "value": "palm-chat-bison"
-  },
-  {
-    "description": "PaLM Bison (Google)",
-    "value": "palm-text-bison"
-  },
-  {
-    "description": "Command Light (Cohere)",
-    "value": "cohere-command-light"
-  },
-  {
-    "description": "Command (Cohere)",
-    "value": "cohere-command"
-  }
-]
-```
-Lets use a different model.
+Lets use a different model. You can get the list of supported models here:
 ```python Python
 llm = PromptCompletion(
   prompt="Hello world",
@@ -139,6 +94,6 @@ You can now hit the deployed api anywhere in one line using:
 ```python Python
 chain.load(id=chain_id)
 chain.run({
-  "description" : "I am building a product for using LLMs to make icecream",
+  "description" : "I am building a product for using LLMs to make sandwiches",
 })
 ```
