@@ -38,19 +38,10 @@
   ],
   "navigation": [
     {
-      "group": "Getting Started",
+      "group": "Get Started",
       "pages": [
-        "getting-started/introduction",
-        "getting-started/installation",
-        "getting-started/authentication",
-        "getting-started/terminology",
-        {
-          "group": "Relevance as a vector platform",
-          "pages": [
-            "getting-started/vector-platform",
-            "getting-started/experimentation-first"
-          ]
-        }
+        "creating-chains/quickstart",
+        "creating-chains/custom-steps/getting-started",
       ]
     },
     {
@@ -127,35 +118,6 @@
       ]
     },
     {
-      "group": "Unstructured Data Analysis",
-      "pages": [
-        {
-          "group": "Text",
-          "pages": [
-            "unstructured-data-analysis/text/text-1",
-            "unstructured-data-analysis/text/stopwords",
-            "unstructured-data-analysis/text/emotion-analysis",
-            "unstructured-data-analysis/text/sentiment-analysis",
-            "unstructured-data-analysis/text/huggingface",
-            "unstructured-data-analysis/text/text-vectors",
-            "unstructured-data-analysis/text/translation",
-            "unstructured-data-analysis/text/tag-nouns"
-          ]
-        },
-        {
-          "group": "Image",
-          "pages": [
-            "unstructured-data-analysis/image/image-emotion-analysis",
-            "unstructured-data-analysis/image/color-analysis",
-            "unstructured-data-analysis/image/image-vectors"
-          ]
-        },
-        "unstructured-data-analysis/audio",
-        "unstructured-data-analysis/video",
-        "unstructured-data-analysis/pdf-documents"
-      ]
-    },
-    {
       "group": "Vector Embeddings",
       "pages": [
         {
@@ -197,31 +159,9 @@
       ]
     },
     {
-      "group": "Theory and Concepts",
-      "pages": [
-        {
-          "group": "What is vector search?",
-          "pages": [
-            "theory/what-is-vector-search/what-is-vector-search",
-            "theory/what-is-vector-search/how-to-vector-search",
-            "theory/what-is-vector-search/applications-of-vectors"
-          ]
-        },
-        "theory/vectors-for-classification"
-      ]
-    },
-    {
       "group": "Other",
       "pages": [
-        "other/python-sdk-ref",
         "other/data-privacy"
-      ]
-    },
-    {
-      "group": "Custom Transformations",
-      "pages": [
-        "custom-transformations/introduction-to-custom-transformations",
-        "custom-transformations/getting-started"
       ]
     }
   ],
