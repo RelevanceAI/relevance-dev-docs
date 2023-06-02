@@ -2,4 +2,59 @@
 title: "Clustering"
 ---
 
-Clustering is a great way to let machine learning automatically segment and categorize your data.
+Quickly cluster your data (By default we cluster data into 25 clusters using Sklearn KMeans.)
+
+```python Python 
+from relevanceai import Client
+
+client = Client(token=YOUR_ACTIVATION_TOKEN)
+ds = client.Dataset("quickstart")
+
+vector_fields = ["word_vector_"]
+cluster_ops = ds.cluster(vector_fields=vector_fields)
+```
+
+## Use any Scikit-learn model
+
+Letting you freely adjust all the parameters for clustering. For non-centroid based methods we calculate a grand centroid by averaging all the vectors in the cluster.
+
+```python Python 
+from sklearn.cluster import AgglomerativeClustering
+
+cluster_model = AgglomerativeClustering()
+
+vector_fields = ["word_vector_"]
+cluster_ops = ds.cluster(vector_fields=vector_fields, model=cluster_model, alias="agglomerative")
+```
+
+Setting an alias helps you identify between different clustering you've done. The naming convention of the field is:  
+`_cluster_.{vector_field}.{alias}` and it will create cluster labels like this:
+
+```python Python 
+{"_cluster_" : { "word_vector": { "agglomerative": "cluster_1" } } }
+```
+
+## Use with HDBSCAN
+
+HDBSCAN is an alternative to DBSCAN that extracts more flat cluster based on stability. You can read more about it here: [https://hdbscan.readthedocs.io/en/latest/how\_hdbscan\_works.html](https://hdbscan.readthedocs.io/en/latest/how%5Fhdbscan%5Fworks.html)
+
+```python Python 
+from hdbscan import HDBSCAN
+
+cluster_model = HDBSCAN()
+
+vector_fields = ["word_vector_"]
+cluster_ops = ds.cluster(vector_fields=vector_fields, model=cluster_model, alias="hdbscan")
+```
+
+<Note>
+📘 **Outlier clustesr**
+
+Methods like HDBSCAN will produce outlier clusters. They are labelled as "cluster\_-1" in Relevance.
+</Note>
+
+## Retrieve cluster centroids
+
+```
+python Python cluster_ops.centroids
+```

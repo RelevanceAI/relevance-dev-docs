@@ -92,6 +92,46 @@
       ]
     },
     {
+      "group": "Vector Embeddings",
+      "pages": [
+        {
+          "group": "Creating vectors",
+          "pages": [
+            "vector-embeddings/creating-vectors/creating-vectors",
+            "vector-embeddings/creating-vectors/vectorize-text",
+            "vector-embeddings/creating-vectors/vectorize-image",
+            "vector-embeddings/creating-vectors/list-all-vector-fields",
+            "vector-embeddings/creating-vectors/extracting-vectors-from-pretrained-pytorch-models"
+          ]
+        },
+        {
+          "group": "Clustering",
+          "pages": [
+            "vector-embeddings/clustering/clustering",
+            "vector-embeddings/clustering/closest-to-centroids",
+            "vector-embeddings/clustering/cluster-aggregate",
+            "vector-embeddings/clustering/byo-clusters",
+            "vector-embeddings/clustering/fast-clustering",
+            "vector-embeddings/clustering/label-new-documents-with-clusters",
+            "vector-embeddings/clustering/view-cluster-labels-and-descriptions"
+          ]
+        },
+        {
+          "group": "Vector similarity search",
+          "pages": [
+            "vector-embeddings/vector-similarity-search/search",
+            "vector-embeddings/vector-similarity-search/vector-search",
+            "vector-embeddings/vector-similarity-search/multi-vector-search",
+            "vector-embeddings/vector-similarity-search/traditional-text-search",
+            "vector-embeddings/vector-similarity-search/approximate-nearest-neighbors-search",
+            "vector-embeddings/vector-similarity-search/vector-search-on-chunks"
+          ]
+        },
+        "vector-embeddings/dimensionality-reduction",
+        "vector-embeddings/label"
+      ]
+    },
+    {
       "group": "Data Apps",
       "pages": [
         "data-apps/report-app",
@@ -115,47 +155,6 @@
           ]
         },
         "data-apps/marks"
-      ]
-    },
-    {
-      "group": "Vector Embeddings",
-      "pages": [
-        {
-          "group": "Creating vectors",
-          "pages": [
-            "vector-embeddings/creating-vectors/creating-vectors",
-            "vector-embeddings/creating-vectors/vectorize-text",
-            "vector-embeddings/creating-vectors/vectorize-image",
-            "vector-embeddings/creating-vectors/list-all-vector-fields",
-            "vector-embeddings/creating-vectors/extracting-vectors-from-pretrained-pytorch-models"
-          ]
-        },
-        {
-          "group": "Clustering",
-          "pages": [
-            "vector-embeddings/clustering/clustering",
-            "vector-embeddings/clustering/clustering-1",
-            "vector-embeddings/clustering/closest-to-centroids",
-            "vector-embeddings/clustering/cluster-aggregate",
-            "vector-embeddings/clustering/byo-clusters",
-            "vector-embeddings/clustering/fast-clustering",
-            "vector-embeddings/clustering/label-new-documents-with-clusters",
-            "vector-embeddings/clustering/view-cluster-labels-and-descriptions"
-          ]
-        },
-        {
-          "group": "Vector similarity search",
-          "pages": [
-            "vector-embeddings/vector-similarity-search/search",
-            "vector-embeddings/vector-similarity-search/vector-search",
-            "vector-embeddings/vector-similarity-search/multi-vector-search",
-            "vector-embeddings/vector-similarity-search/traditional-text-search",
-            "vector-embeddings/vector-similarity-search/approximate-nearest-neighbors-search",
-            "vector-embeddings/vector-similarity-search/vector-search-on-chunks"
-          ]
-        },
-        "vector-embeddings/dimensionality-reduction",
-        "vector-embeddings/label"
       ]
     },
     {
