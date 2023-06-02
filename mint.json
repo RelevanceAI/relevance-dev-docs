@@ -41,7 +41,14 @@
       "group": "Get Started",
       "pages": [
         "creating-chains/quickstart",
-        "creating-chains/custom-steps/getting-started"
+        "creating-chains/supported-models",
+        {
+          "group": "Custom steps for chains",
+          "pages": [
+            "creating-chains/custom-steps/custom-steps"
+          ]
+        },
+        "creating-chains/supported-models"
       ]
     },
     {
