@@ -34,7 +34,7 @@ llm.run()
 ```
 
 Lets use a different model.
-```
+```python Python
 llm = PromptCompletion(
   prompt="Hello world",
   model="anthropic-claude-instant-v1"
@@ -43,7 +43,7 @@ llm.run()
 ```
 
 Lets add a parameter, you'll need to wrap parameters around {{}}.
-```
+```python Python
 from relevanceai.params import StringParam
 
 name = StringParam("name")
@@ -57,9 +57,9 @@ llm.run({
 })
 ```
 
-#4. Lets create a chain of prompts.
+# 4. Lets create a chain of prompts.
 First create a chain.
-```
+```python Python
 description = StringParam("description")
 
 chain = rai.create(
@@ -87,6 +87,6 @@ chain.run({
 ```
 
 Once you are happy with the chain you can deploy it as a scalable API.
-```
+```python Python
 chain.deploy()
 ```
