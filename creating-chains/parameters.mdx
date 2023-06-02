@@ -1,0 +1,146 @@
+---
+title: "Parameters"
+---
+# Params Library
+
+The Params library allows you to define parameters for your chains and steps. This means when you deploy the chain as an API the endpoint will just need the feed in the parameters to run the chain.
+
+
+## Defining parameters
+
+You can define parameters by inheriting from the ParamBase class or using the pre-defined parameter classes:
+
+- StringParam - A string parameter
+
+- NumberParam - A number parameter with optional min/max
+
+- OptionsParam - A parameter with a list of options
+
+- StringListParam - A list of strings
+
+- JsonParam - A JSON object
+
+- JsonListParam - A list of JSON objects
+
+- FileParam - A file parameter
+
+
+## Usage
+You can define parameters and use them in your model prompts like this:
+```python
+from relevanceai.params import StringParam
+
+name = StringParam("name")
+
+llm = PromptCompletion(
+  prompt="Hello world my name is {{params.name}}", 
+  parameters=name 
+)
+llm.run({
+  "name" : "John" 
+})
+```
+
+The `{{params.name}}` will be replaced with the value for the `name` parameter.
+
+## StringParam  
+Defines a string parameter.
+
+**Arguments:**
+
+- `name`: The name of the parameter. Used to reference the parameter in prompts. 
+- `long`: Whether this is a long string parameter. If `True`, the UI will use a textarea, else an input. Default `False`.
+- `title`: The title to show for this parameter in the UI. Default "Text Input".
+- `description`: The description to show for this parameter in the UI.
+
+**Example:** 
+```python
+name = StringParam("name", title="Your Name")
+```
+
+## NumberParam
+Defines a number parameter.
+
+**Arguments:**
+
+- `name`: The name of the parameter. Used to reference the parameter in prompts.  
+- `max`: The maximum allowed value. 
+- `min`: The minimum allowed value.
+- `title`: The title to show for this parameter in the UI. Default "Number Input".  
+- `description`: The description to show for this parameter in the UI.
+
+**Example:**
+```python
+age = NumberParam("age", min=18, max=120, title="Your Age")
+```
+
+## OptionsParam
+Defines a parameter with a fixed set of options.
+
+**Arguments:**  
+
+- `name`: The name of the parameter. Used to reference the parameter in prompts.
+- `options`: A list of possible options. 
+- `title`: The title to show for this parameter in the UI. Default "Options".
+- `description`: The description to show for this parameter in the UI.
+
+**Example:**
+```python
+color = OptionsParam("color", ["Red", "Green", "Blue"], "Choose a color")
+```
+
+## StringListParam 
+Defines a parameter that is a list of strings.
+
+**Arguments:**   
+
+- `name`: The name of the parameter. Used to reference the parameter in prompts.  
+- `title`: The title to show for this parameter in the UI. Default "Text List Input".  
+- `description`: The description to show for this parameter in the UI.
+
+**Example:** 
+```python 
+interests = StringListParam("interests", "Your Interests")
+```
+
+## JsonParam
+Defines a parameter that accepts JSON input.
+
+**Arguments:**   
+
+- `name`: The name of the parameter. Used to reference the parameter in prompts.
+- `title`: The title to show for this parameter in the UI. Default "JSON Input".  
+- `description`: The description to show for this parameter in the UI.
+
+**Example:**
+```python
+config = JsonParam("config", "Model Config") 
+```
+
+## JsonListParam
+Defines a parameter that is a list of JSON objects.
+
+**Arguments:**   
+
+- `name`: The name of the parameter. Used to reference the parameter in prompts.  
+- `title`: The title to show for this parameter in the UI. Default "JSON List Input".  
+- `description`: The description to show for this parameter in the UI.
+
+**Example:**  
+```python
+objects = JsonListParam("objects", "List of Objects")
+```
+
+## FileParam
+Defines a parameter that accepts file upload.
+
+**Arguments:**
+
+- `name`: The name of the parameter. Used to reference the parameter in prompts.  
+- `title`: The title to show for this parameter in the UI. Default "File Input".  
+- `description`: The description to show for this parameter in the UI.
+
+**Example:** 
+```python
+file = FileParam("file", "Upload a file")
+```

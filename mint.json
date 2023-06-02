@@ -45,7 +45,7 @@
         {
           "group": "Custom steps for chains",
           "pages": [
-            "creating-chains/custom-steps/custom-steps"
+            "creating-chains/custom-steps/custom-step"
           ]
         },
         "creating-chains/export"
