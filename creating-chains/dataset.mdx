@@ -36,6 +36,28 @@ Now its ready for search:
 ds.search(text="vroom", page_size=1)
 ```
 
+## Changing models
+Lets change the model to "text-embedding-ada-002":
+```
+ds.insert(
+    documents=[
+        {"_id": "doc1", "text": "tiger", "category": "land"},
+        {"_id": "doc2", "text": "lion", "category": "land"},
+        {"_id": "doc3", "text": "tigr", "category": "land"},
+        {"_id": "doc4", "text": "car", "category": "land"},
+    ],
+    encoders=[{
+        "model_name":"text-embedding-ada-002",
+        "field" : "text"
+    }]
+)
+```
+We support these models ['image_text', 'text_image', 'all-mpnet-base-v2', 'clip-vit-b-32-image', 'clip-vit-b-32-text', 'clip-vit-l-14-image', 'clip-vit-l-14-text', 'sentence-transformers', 'text-embedding-ada-002', 'cohere-small', 'cohere-large', 'cohere-multilingual-22-12']:
+```
+ds.search(text="vroom", model="text-embedding-ada-002")
+```
+
+
 ## Bring your own vectors:
 ```python Python
 ds.insert(
@@ -63,4 +85,10 @@ query = StringParam("query")
 ds.search_to_step(
     text=query
 )
+```
+
+## You can list your datasets
+```python Python
+from relevanceai import rai
+rai.list_datasets()
 ```
