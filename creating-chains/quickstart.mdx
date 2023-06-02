@@ -1,0 +1,92 @@
+---
+title: "Quickstart"
+---
+
+# 1. Create an account and install Relevance AI
+
+Before you get started, make sure you create an account and install Relevance AI:
+  1. Sign up for a free account at https://chain.relevanceai.com and then login to your Relevance AI account.
+  2. Install the RelevanceAI library in a Python 3 environment
+
+```
+pip install relevanceai
+```
+
+# 2. Log in to Relevance AI
+
+```python Python
+import relevanceai as rai
+rai.login()
+```
+You can create a key here: https://chain.relevanceai.com/login/sdk
+
+# 3. Manage prompts and swap between models for LLMs
+
+Lets run the LLM.
+```
+from relevanceai.steps import PromptCompletion
+
+llm = PromptCompletion(
+  prompt="Hello world",
+  model="openai-gpt35"
+)
+llm.run()
+```
+
+Lets use a different model.
+```
+llm = PromptCompletion(
+  prompt="Hello world",
+  model="anthropic-claude-instant-v1"
+)
+llm.run()
+```
+
+Lets add a parameter, you'll need to wrap parameters around {{}}.
+```
+from relevanceai.params import StringParam
+
+name = StringParam("name")
+
+llm = PromptCompletion(
+  prompt="Hello world my name is {{params.name}}",
+  parameters=name
+)
+llm.run({
+  "name" : "John"
+})
+```
+
+#4. Lets create a chain of prompts.
+First create a chain.
+```
+description = StringParam("description")
+
+chain = rai.create(
+  name="My first chain",
+  description="The chain will suggest me a name and then rate the name.",
+  parameters = [sp]
+)
+chain.reset()
+suggest_llm = PromptCompletion(
+  prompt="Suggest me a name for {{params.description}}\nName:",
+  parameters=description
+)
+
+rate_llm = PromptCompletion(
+  prompt=f"Rate the name {suggest_llm.outputs["answer"]} out of 5\nRating:",
+)
+chain.add([
+  suggest_llm,
+  rate_llm
+])
+
+chain.run({
+  "description" : "I am building a product for using LLMs to make icecream",
+})
+```
+
+Once you are happy with the chain you can deploy it as a scalable API.
+```
+chain.deploy()
+```
