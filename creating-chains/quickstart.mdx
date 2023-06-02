@@ -132,5 +132,13 @@ chain.run({
 
 Once you are happy with the chain you can deploy it as a scalable API.
 ```python Python
-chain.deploy()
+chain_id = chain.deploy()
+```
+
+You can now hit the deployed api anywhere in one line using:
+```python Python
+chain.load(id=chain_id)
+chain.run({
+  "description" : "I am building a product for using LLMs to make icecream",
+})
 ```
