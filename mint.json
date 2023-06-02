@@ -43,6 +43,7 @@
         "creating-chains/quickstart",
         "creating-chains/supported-models",
         "creating-chains/parameters",
+        "creating-chains/dataset",
         {
           "group": "Custom steps for chains",
           "pages": [
