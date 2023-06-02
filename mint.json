@@ -49,6 +49,7 @@
             "creating-chains/custom-steps/custom-step"
           ]
         },
+        "creating-chains/one-click-deployment",
         "creating-chains/export"
       ]
     },
