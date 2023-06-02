@@ -41,7 +41,7 @@
       "group": "Get Started",
       "pages": [
         "creating-chains/quickstart",
-        "creating-chains/custom-steps/getting-started",
+        "creating-chains/custom-steps/getting-started"
       ]
     },
     {
