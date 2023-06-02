@@ -101,7 +101,7 @@ llm.run({
 })
 ```
 
-# 4. Lets create a chain of prompts.
+# 4. Lets create a chain of llms.
 First create a chain.
 ```python Python
 description = StringParam("description")
@@ -111,15 +111,15 @@ chain = rai.create(
   description="The chain will suggest me a name and then rate the name.",
   parameters = [sp]
 )
-chain.reset()
+
 suggest_llm = PromptCompletion(
   prompt="Suggest me a name for {{params.description}}\nName:",
   parameters=description
 )
-
 rate_llm = PromptCompletion(
-  prompt=f"Rate the name {suggest_llm.outputs["answer"]} out of 5\nRating:",
+  prompt="Rate the name {} out of 5\nRating:".format(suggest_llm.outputs["answer"]),
 )
+
 chain.add([
   suggest_llm,
   rate_llm
