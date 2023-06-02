@@ -105,7 +105,7 @@ def transform_func(prompt):
     return {"results" : [t['generated_text'] for t in gpt2_model(prompt)]}
 
 @app.post("/gpt2", name="Run GPT2", description="Run GPT2", response_model=GPT2ResponseParams)
-def bark_api(commons: GPT2Params):
+def gpt2_api(commons: GPT2Params):
     return transform_func(commons.prompt)
 
 import nest_asyncio
