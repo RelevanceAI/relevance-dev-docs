@@ -76,7 +76,8 @@
     {
       "group": "Creating custom steps",
       "pages": [
-        "custom-steps/custom-step"
+        "custom-steps/custom-step",
+        "custom-steps/list-and-run-custom-step"
       ]
     },
     {
