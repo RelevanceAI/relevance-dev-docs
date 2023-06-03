@@ -3,12 +3,15 @@ title: "Redis Vector Search"
 ---
 
 # Vector Search with Redis
-
+Login and set your redis connection string you can also set this in the dashboard
 ```python Python
 import relevanceai as rai
-from relevanceai.steps import RedisSearch
 rai.login()
-rai.set_key("redis_connection_string", YOUR_REDIS_CONNECTION_STRING)
+rai.set_key("redis-external", YOUR_REDIS_CONNECTION_STRING)
+```
+Its ready for search
+```python Python
+from relevanceai.steps import RedisSearch
 
 results = RedisSearch(
     index="mlopscommunity",
