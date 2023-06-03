@@ -56,13 +56,13 @@
     {
       "group": "Creating custom steps",
       "pages": [
-        "creating-chains/custom-step"
+        "custom-steps/custom-step"
       ]
     },
     {
       "group": "Datasets backends",
       "pages": [
-        "datasets_backend/redis"
+        "datasets-backend/redis"
       ]
     },
     {
