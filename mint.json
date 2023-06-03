@@ -61,6 +61,7 @@
         "steps/redis-vector-search",
         "steps/inflight-vector-search",
         "steps/execute-javascript",
+        "steps/get-webpage",
         "steps/other-steps"
       ]
     },
