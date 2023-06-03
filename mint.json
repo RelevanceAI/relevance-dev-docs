@@ -69,6 +69,7 @@
         "steps/get-webpage",
         "steps/pdf-to-text",
         "steps/api-call",
+        "steps/split-text",
         "steps/run-chain",
         "steps/other-steps"
       ]

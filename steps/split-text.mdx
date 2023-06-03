@@ -1,0 +1,18 @@
+---
+title: "Split Text"
+---
+
+# Run chain
+
+You can now run the chain within a chain!
+```python Python
+from relevanceai.steps import SplitText
+
+results = SplitText(
+    text="{{params.text}}",
+    method="tokens",
+    num_tokens=500,
+).run({
+    "text" : "..."
+})
+```
