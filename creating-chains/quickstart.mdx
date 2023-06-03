@@ -56,6 +56,14 @@ llm.run({
 })
 ```
 
+For the full response
+
+```python Python
+llm.run({
+  "name" : "John"
+}, full_response=True)
+```
+
 # 4. Lets create a chain of llms.
 First create a chain.
 ```python Python
@@ -92,7 +100,8 @@ chain_id = chain.deploy()
 
 You can now hit the deployed api anywhere in one line using:
 ```python Python
-chain.load(id=chain_id)
+from relevanceai import rai
+load(id=chain_id)
 chain.run({
   "description" : "I am building a product for using LLMs to make sandwiches",
 })

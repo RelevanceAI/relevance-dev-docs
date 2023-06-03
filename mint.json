@@ -31,6 +31,11 @@
       "url": "https://relevanceai.com/book-a-demo"
     },
     {
+      "name": "Github",
+      "icon": "github",
+      "url": "https://github.com/RelevanceAI/relevanceai"
+    },
+    {
       "name": "Community",
       "icon": "discord",
       "url": "https://discord.com/invite/8VHJJrQZMM"
@@ -72,12 +77,6 @@
       "group": "Creating custom steps",
       "pages": [
         "custom-steps/custom-step"
-      ]
-    },
-    {
-      "group": "Datasets backends",
-      "pages": [
-        "datasets-backend/redis"
       ]
     },
     {
