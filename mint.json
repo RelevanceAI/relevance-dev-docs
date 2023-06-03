@@ -56,7 +56,10 @@
     {
       "group": "Supported steps",
       "pages": [
-        "steps/prompt-completion"
+        "steps/prompt-completion",
+        "steps/vector-search",
+        "steps/redis-vector-search",
+        "steps/other-steps"
       ]
     },
     {

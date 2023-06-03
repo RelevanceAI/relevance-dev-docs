@@ -1,0 +1,20 @@
+---
+title: "Redis Vector Search"
+---
+
+# Vector Search with Redis
+
+```python Python
+import relevanceai as rai
+from relevanceai.steps import RedisSearch
+rai.login()
+rai.set_key("redis_connection_string", YOUR_REDIS_CONNECTION_STRING)
+
+results = RedisSearch(
+    index="mlopscommunity",
+    query="hello",
+    vector_field="vector",
+    model="text-embedding-ada-002",
+    page_size=5
+).run()
+```
