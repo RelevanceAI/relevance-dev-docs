@@ -56,7 +56,7 @@
     {
       "group": "Supported steps",
       "pages": [
-        "custom-steps/custom-step"
+        "steps/prompt-completion"
       ]
     },
     {
