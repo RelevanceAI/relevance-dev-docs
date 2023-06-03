@@ -9,5 +9,13 @@ You can see all of our latest steps at:
 
 You can run any of those steps via:
 ```python Python
+from relevanceai.steps import RunStep
 
+step = RunStep(step_id)
+```
+This will error with all the appropriate fields.
+```python Python
+from relevanceai.steps import RunStep
+
+step = RunStep(step_id, required_field_1="...", required_field_2="...")
 ```
