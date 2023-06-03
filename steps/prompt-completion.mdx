@@ -1,0 +1,70 @@
+---
+title: "LLMs - Prompt Completion"
+---
+
+# LLM, Prompt completion step
+
+Lets run the LLM.
+```python Python
+from relevanceai.steps import PromptCompletion
+
+llm = PromptCompletion(
+  prompt="Hello world",
+  model="openai-gpt35"
+)
+llm.run()
+```
+
+Lets use a different model. You can get the list of supported models here https://sdk.relevanceai.com/creating-chains/supported-models.
+```python Python
+llm = PromptCompletion(
+  prompt="Hello world",
+  model="anthropic-claude-instant-v1"
+)
+llm.run()
+```
+
+## `RunChain` Class
+
+The `RunChain` class is a subclass of `StepBase` and represents a step in the relevance.ai pipeline. It is used to execute a chain of steps specified by a `chain_id` and `params`.
+
+### Constructor
+
+#### Parameters
+
+- `chain_id` (str): The ID of the chain to be executed.
+- `params` (dict): A dictionary containing the parameters for the chain.
+- `step_name` (str, optional): The name of the step. Defaults to "run_chain".
+- `*args` and `**kwargs`: Additional arguments and keyword arguments.
+
+### Properties
+
+- `steps`: Returns a list containing a single dictionary representing the step configuration.
+
+### Step Configuration
+
+The `RunChain` class generates a step configuration dictionary that can be used in the relevance.ai pipeline. The step configuration contains the following fields:
+
+- `transformation` (str): The transformation type, which is set to "run_chain" for this step.
+- `name` (str): The name of the step, as specified in the `step_name` parameter.
+- `foreach` (str): An empty string, indicating that the step does not iterate over any input.
+- `output` (dict): A dictionary mapping output names to their corresponding values. The output names are generated based on the `_outputs` list.
+- `params` (dict): A dictionary containing the `chain_id` and `params` for the chain.
+
+### Output Names
+
+The `RunChain` class defines a list of output names in the `_outputs` attribute. These names include:
+
+- `output`: The output of the chain execution.
+- `state`: The state of the chain execution.
+- `status`: The status of the chain execution.
+- `errors`: Any errors that occurred during the chain execution.
+- `cost`: The cost of the chain execution.
+- `credits_used`: The amount of credits used for the chain execution.
+- `executionTime`: The time taken for the chain execution.
+
+The output names are used to generate the `outputs` property, which provides a list of fully-qualified output paths for the step configuration.
+
+**Note:** The double curly braces (`{{ }}`) in the output configuration indicate placeholders that will be replaced with the actual values during the pipeline execution.
+
+This `RunChain` class is designed to be used as a step in the relevance.ai pipeline to execute a chain of steps and retrieve the results.

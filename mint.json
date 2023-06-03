@@ -54,6 +54,12 @@
       ]
     },
     {
+      "group": "Supported steps",
+      "pages": [
+        "custom-steps/custom-step"
+      ]
+    },
+    {
       "group": "Creating custom steps",
       "pages": [
         "custom-steps/custom-step"
