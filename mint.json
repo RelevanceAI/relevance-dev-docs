@@ -62,6 +62,8 @@
         "steps/inflight-vector-search",
         "steps/execute-javascript",
         "steps/get-webpage",
+        "steps/api-call",
+        "steps/run-chain",
         "steps/other-steps"
       ]
     },
