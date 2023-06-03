@@ -59,6 +59,8 @@
         "steps/prompt-completion",
         "steps/vector-search",
         "steps/redis-vector-search",
+        "steps/inflight-vector-search",
+        "steps/execute-javascript",
         "steps/other-steps"
       ]
     },
