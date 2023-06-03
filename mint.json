@@ -44,14 +44,15 @@
         "creating-chains/supported-models",
         "creating-chains/parameters",
         "creating-chains/dataset",
-        {
-          "group": "Custom steps for chains",
-          "pages": [
-            "creating-chains/custom-steps/custom-step"
-          ]
-        },
+        "creating-chains/custom-step",
         "creating-chains/one-click-deployment",
         "creating-chains/export"
+      ]
+    },
+    {
+      "group": "Datasets backends",
+      "pages": [
+        "datasets_backend/redis"
       ]
     },
     {

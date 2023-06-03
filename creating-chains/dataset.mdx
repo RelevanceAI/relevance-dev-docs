@@ -82,8 +82,9 @@ Note this only works for the hosted embeddings. To do this for your own embeddin
 from relevanceai.params import StringParam
 
 query = StringParam("query")
-ds.search_to_step(
-    text=query
+ds.search(
+    text=query,
+    return_as_step=True
 )
 ```
 
@@ -91,4 +92,11 @@ ds.search_to_step(
 ```python Python
 from relevanceai import rai
 rai.list_datasets()
+```
+
+## For more complex search
+Note: This search can't be added to a chain yet.
+This search can do a lot of things from searching with vectors.
+```python Python
+ds.db.search(...)
 ```
