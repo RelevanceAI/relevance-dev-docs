@@ -62,6 +62,7 @@
         "steps/inflight-vector-search",
         "steps/execute-javascript",
         "steps/get-webpage",
+        "steps/pdf-to-text",
         "steps/api-call",
         "steps/run-chain",
         "steps/other-steps"
