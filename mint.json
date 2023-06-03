@@ -49,9 +49,14 @@
         "creating-chains/supported-models",
         "creating-chains/parameters",
         "creating-chains/dataset",
-        "creating-chains/custom-step",
         "creating-chains/one-click-deployment",
         "creating-chains/export"
+      ]
+    },
+    {
+      "group": "Creating custom steps",
+      "pages": [
+        "creating-chains/custom-step"
       ]
     },
     {
