@@ -34,6 +34,11 @@
       "name": "Community",
       "icon": "discord",
       "url": "https://discord.com/invite/8VHJJrQZMM"
+    },
+    {
+      "name": "Javascript SDK",
+      "icon": "javascript",
+      "url": "https://documentation.relevanceai.com"
     }
   ],
   "navigation": [
