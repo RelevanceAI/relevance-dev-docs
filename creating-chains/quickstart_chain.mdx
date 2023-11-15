@@ -101,7 +101,7 @@ chain_id = chain.deploy()
 You can now hit the deployed api anywhere in one line using:
 ```python Python
 from relevanceai import rai
-load(id=chain_id)
+chain = rai.chain.load(id=chain_id)
 chain.run({
   "description" : "I am building a product for using LLMs to make sandwiches",
 })
