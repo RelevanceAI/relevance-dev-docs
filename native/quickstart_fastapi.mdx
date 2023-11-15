@@ -40,6 +40,7 @@ from relevanceai.connect.fastapi.tools import connect_tools
 connect_tools(app.routes, PUBLIC_URL)
 ```
 
+Here is an example in the context of FastAPI code.
 ```python Python
 PUBLIC_URL = "https://where_my_api_is_hosted.com/"
 
@@ -68,7 +69,7 @@ from relevanceai.connect.fastapi.tools import connect_tools
 connect_tools(app.routes, PUBLIC_URL)
 ```
 
-Add nest_asyncio if you are in a notebook environment. `pip install nest-asyncio`
+Add `nest_asyncio` if you are in a notebook environment. `pip install nest-asyncio`
 
 ```python Python
 import nest_asyncio
@@ -76,8 +77,8 @@ nest_asyncio.apply()
 ```
 
 ## 3.2 Defining the endpoint and tool
-- The name and description of the endpoint (`app.post(name=...)`) becomes the same name and description of the Tool. This is crucial when a tool is equipped to an agent since its used in the prompt for agents.
-- The typing and description of params sets the user inputs for the tool.
+- `@app.post(name=..., description=...)`. The `name` and `description` of the endpoint becomes the same `name` and `description` of the Tool. This is crucial when a tool is equipped to an agent since its used in the prompt for agents.
+- `message : str = Query(..., description="message from user")` The typing and description of endpoint parameters is automatically used when setting the user inputs for the Tool.
 
 ```python Python
 class HelloWorldParams(BaseModel):
