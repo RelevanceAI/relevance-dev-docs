@@ -82,7 +82,8 @@ class HelloWorldResponse(BaseModel):
 def hello_world(prompt):
     return {"reply" : "hello world"}
 
-#the name and description is the tool name and description which is crucial for the performance of agents, when a tool is equipped to an agent.
+#The name and description is the Tool name and description.
+#This is crucial when a tool is equipped to an agent, since its used in the prompt for agents.
 @app.post("/hello_world", name="Hello World", description="Reply always with hello world", response_model=HelloWorldResponse)
 def hello_world_api(commons: HelloWorldParams):
     return hello_world(commons.message)
