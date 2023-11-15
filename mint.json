@@ -50,7 +50,7 @@
     {
       "group": "Get Started",
       "pages": [
-        "native/quickstart_fastapi"
+        "native/connect_fastapi"
       ]
     },
     {
