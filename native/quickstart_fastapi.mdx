@@ -30,15 +30,17 @@ SET RELEVANCE_PROJECT=RELEVANCE_PROJECT
 # 3. Connecting FastAPI to Relevance AI.
 Connec your FastAPI endpoints as Relevance AI tools for agents to use or as steps in other tools.
 
-## Connect
-The main function to connect your fastapi endpoints to Relevance AI is:
+## 3.1 Connect
+The main function to connect your fastapi endpoints to Relevance AI is `connect_tools`:
+- the `PUBLIC_URL` is the public url to connect to your fastapi. 
+- the `app.routes` is the FastAPI's `app = FastAPI()`  
+
 ```python Python
 from relevanceai.connect.fastapi.tools import connect_tools
 connect_tools(app.routes, PUBLIC_URL)
 ```
 
-The `PUBLIC_URL` is the public url to connect to your fastapi. 
-```
+```python Python
 PUBLIC_URL = "https://where_my_api_is_hosted.com/"
 
 from fastapi import FastAPI
@@ -65,6 +67,7 @@ PUBLIC_URL = ngrok.connect(8000).public_url
 from relevanceai.connect.fastapi.tools import connect_tools
 connect_tools(app.routes, PUBLIC_URL)
 ```
+
 Add nest_asyncio if you are in a notebook environment. `pip install nest-asyncio`
 
 ```python Python
@@ -72,19 +75,21 @@ import nest_asyncio
 nest_asyncio.apply()
 ```
 
-## Defining the endpoint
+## 3.2 Defining the endpoint and tool
+- The name and description of the endpoint (`app.post(name=...)`) becomes the same name and description of the Tool. This is crucial when a tool is equipped to an agent since its used in the prompt for agents.
+- The typing and description of params sets the user inputs for the tool.
+
 ```python Python
 class HelloWorldParams(BaseModel):
     message : str = Query(..., description="message from user")
 
 class HelloWorldResponse(BaseModel):
-    reply : str = Query(" ", description="the reply to the user's message")
+    reply : str
 
 def hello_world(prompt):
     return {"reply" : "hello world"}
 
-#The name and description is the Tool name and description.
-#This is crucial when a tool is equipped to an agent, since its used in the prompt for agents.
+#The name and description below is the Tool name and description.
 @app.post("/hello_world", name="Hello World", description="Reply always with hello world", response_model=HelloWorldResponse)
 def hello_world_api(commons: HelloWorldParams):
     return hello_world(commons.message)
