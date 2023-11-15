@@ -54,7 +54,7 @@
       ]
     },
     {
-      "group": "Creating Tools (previously known as Chains)",
+      "group": "Creating Tools (fka Chains)",
       "pages": [
         "creating-chains/quickstart",
         "creating-chains/supported-models",
