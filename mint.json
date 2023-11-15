@@ -50,6 +50,12 @@
     {
       "group": "Get Started",
       "pages": [
+        "native/quickstart_fastapi"
+      ]
+    },
+    {
+      "group": "Creating Tools (previously known as Chains)",
+      "pages": [
         "creating-chains/quickstart",
         "creating-chains/supported-models",
         "creating-chains/parameters",
@@ -72,13 +78,6 @@
         "steps/split-text",
         "steps/run-chain",
         "steps/other-steps"
-      ]
-    },
-    {
-      "group": "Creating custom steps",
-      "pages": [
-        "custom-steps/custom-step",
-        "custom-steps/list-and-run-custom-step"
       ]
     },
     {

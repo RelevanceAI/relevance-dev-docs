@@ -1,0 +1,129 @@
+---
+title: "Quickstart: FastAPI to Tool"
+---
+
+# 1. Create an account and install Relevance AI
+
+Before you get started, make sure you create an account and install Relevance AI:
+  1. Sign up for a free account at https://app.relevanceai.com and then login to your Relevance AI account.
+  2. Install the RelevanceAI library in a Python 3 environment
+
+```
+pip install relevanceai
+```
+
+# 2. Log in to Relevance AI
+
+```python Python
+import relevanceai as rai
+rai.login()
+```
+You can create a key at the bottom of the page here: https://app.relevanceai.com/login/sdk
+
+instead of `rai.login()` you can also set environmental variables to automatically login:
+```
+SET RELEVANCE_API_KEY=RELEVANCE_API_KEY
+SET RELEVANCE_REGION=RELEVANCE_REGION
+SET RELEVANCE_PROJECT=RELEVANCE_PROJECT
+```
+
+# 3. Connecting a FastAPI to Relevance AI.
+
+## Connect
+The main function to connect your fastapi endpoints to Relevance AI is:
+```python Python
+from relevanceai.connect.fastapi.tools import connect_tools
+connect_tools(app.routes, PUBLIC_URL)
+```
+
+The `PUBLIC_URL` is the public url to connect to your fastapi. 
+```
+PUBLIC_URL = "https://where_my_api_is_hosted.com/"
+
+from fastapi import FastAPI
+app = FastAPI()
+
+#YOUR APP CODE#
+
+from relevanceai.connect.fastapi.tools import connect_tools
+connect_tools(app.routes, PUBLIC_URL)
+```
+
+If you are working off a local computer, use ngrok to get a public url. `pip install pyngrok`
+
+```python Python
+from fastapi import FastAPI
+app = FastAPI()
+
+#YOUR APP CODE#
+
+#add this for ngrok
+from pyngrok import ngrok
+PUBLIC_URL = ngrok.connect(8000).public_url
+
+from relevanceai.connect.fastapi.tools import connect_tools
+connect_tools(app.routes, PUBLIC_URL)
+```
+Add nest_asyncio if you are in a notebook environment. `pip install nest-asyncio`
+
+```python Python
+import nest_asyncio
+nest_asyncio.apply()
+```
+
+## Defining the endpoint
+```python Python
+class HelloWorldParams(BaseModel):
+    message : str = Query(..., description="message from user")
+
+class HelloWorldResponse(BaseModel):
+    reply : str = Query(" ", description="the reply to the user's message")
+
+def hello_world(prompt):
+    return {"reply" : "hello world"}
+
+#the name and description is the tool name and description which is crucial for the performance of agents, when a tool is equipped to an agent.
+@app.post("/hello_world", name="Hello World", description="Reply always with hello world", response_model=HelloWorldResponse)
+def hello_world_api(commons: HelloWorldParams):
+    return hello_world(commons.message)
+```
+
+## Example of a full code:
+```python Python
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi import APIRouter, Query
+from pydantic import BaseModel
+from typing import List
+
+#create FastAPI app
+app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
+
+class HelloWorldParams(BaseModel):
+    message : str = Query(..., description="message from user")
+
+class HelloWorldResponse(BaseModel):
+    reply : str = Query(" ", description="the reply to the user's message")
+
+def hello_world(prompt):
+    return {"reply" : "hello world"}
+
+@app.post("/hello_world", name="Hello World", description="Reply always with hello world", response_model=HelloWorldResponse)
+def hello_world_api(commons: HelloWorldParams):
+    return hello_world(commons.message)
+
+#If you are deploying the api from a local computer use ngrok to expose a public url.
+from pyngrok import ngrok
+PUBLIC_URL = ngrok.connect(8000).public_url
+
+#This will create a Tool in Relevance AI that will call your API endpoint
+from relevanceai.connect.fastapi.tools import connect_tools
+connect_tools(app.routes, PUBLIC_URL)
+```
