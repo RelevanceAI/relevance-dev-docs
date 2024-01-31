@@ -61,9 +61,15 @@
       ]
     },
     {
+      "group": "Bonus",
+      "pages": [
+        "bonus/shareable-app",
+        "bonus/custom-actions-for-gpts"
+      ]
+    },
+    {
       "group": "Other",
       "pages": [
-        "other/shareable-app",
         "other/data-privacy"
       ]
     }
