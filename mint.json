@@ -41,48 +41,29 @@
       "url": "https://discord.com/invite/8VHJJrQZMM"
     },
     {
-      "name": "Javascript SDK",
+      "name": "General Documentation",
       "icon": "vuejs",
       "url": "https://relevanceai.com/docs"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Python",
       "pages": [
-        "native/connect_fastapi"
+        "python/installation",
+        "python/connect_fastapi"
       ]
     },
     {
-      "group": "Creating Tools (fka Chains)",
+      "group": "Partnership",
       "pages": [
-        "creating-chains/quickstart",
-        "creating-chains/supported-models",
-        "creating-chains/parameters",
-        "creating-chains/dataset",
-        "creating-chains/one-click-deployment",
-        "creating-chains/export"
-      ]
-    },
-    {
-      "group": "Supported steps",
-      "pages": [
-        "steps/prompt-completion",
-        "steps/vector-search",
-        "steps/redis-vector-search",
-        "steps/inflight-vector-search",
-        "steps/execute-javascript",
-        "steps/get-webpage",
-        "steps/pdf-to-text",
-        "steps/api-call",
-        "steps/split-text",
-        "steps/run-chain",
-        "steps/other-steps"
+        "partnership/your-product-as-a-new-tool"
       ]
     },
     {
       "group": "Other",
       "pages": [
+        "other/shareable-app",
         "other/data-privacy"
       ]
     }

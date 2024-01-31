@@ -1,13 +1,13 @@
 ---
 title: "FastAPI to Tool"
 ---
-Connect your FastAPI endpoints as Relevance AI tools for agents to use or as steps in other tools.
+Connect your FastAPI endpoints as Relevance AI tools for agents.
 
 # 1. Create an account and install Relevance AI
 
 Before you get started, make sure you create an account and install Relevance AI:
   1. Sign up for a free account at https://app.relevanceai.com and then login to your Relevance AI account.
-  2. Install the RelevanceAI library in a Python 3 environment
+  2. Install the Relevance AI library in a Python 3 environment
 
 ```
 pip install relevanceai
@@ -32,7 +32,7 @@ SET RELEVANCE_PROJECT=RELEVANCE_PROJECT
 ## 3.1 Connect
 The main function to connect your fastapi endpoints to Relevance AI is `connect_tools`:
 - the `PUBLIC_URL` is the public url to connect to your fastapi. 
-- the `app.routes` is the FastAPI's `app = FastAPI()`  
+- the `app.routes` is the FastAPI's `app = FastAPI()`
 
 ```python Python
 from relevanceai.connect.fastapi.tools import connect_tools
@@ -81,7 +81,7 @@ nest_asyncio.apply()
 
 ```python Python
 class HelloWorldParams(BaseModel):
-    message : str = Query(..., description="message from user")
+    message : str = Query(..., title="Message", description="message from user")
 
 class HelloWorldResponse(BaseModel):
     reply : str
@@ -118,10 +118,10 @@ app.add_middleware(
 )
 
 class HelloWorldParams(BaseModel):
-    message : str = Query(..., description="message from user")
+    message : str = Query(..., title="Message", description="message from user")
 
 class HelloWorldResponse(BaseModel):
-    reply : str = Query(" ", description="the reply to the user's message")
+    reply : str
 
 def hello_world(prompt):
     return {"reply" : "hello world"}

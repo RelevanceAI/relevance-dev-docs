@@ -1,0 +1,16 @@
+---
+title: "Export the tool"
+---
+You can export the tool to a json file:
+```python Python
+tool.to_json()
+```
+or a dictionary:
+```python Python
+tool.to_json(return_json=True)
+```
+You can import the tool:
+```python Python
+from relevanceai import load_from_json
+tool = load_from_json(json_fp_or_json)
+```
