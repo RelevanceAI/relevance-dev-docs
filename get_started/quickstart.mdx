@@ -1,0 +1,74 @@
+---
+title: "Quickstart"
+description: "Start interacting with your agents, tools, and knowledge."
+---
+
+## Using Agents & Tasks
+
+Let's start by listing all the agents in the project.
+
+```python Python
+from relevanceai import RelevanceAI
+client = RelevanceAI()
+
+my_agents = client.agents.list_agents()
+my_agents
+```
+
+```terminal
+[Agent(agent_id="xxxxxxxx", name="Scott Henderson's SEO & Growth Marketing Agent"), Agent(agent_id="xxxxxxxx", name="Rosh Singh's Sales & Research Qualifier Agent")]
+```
+
+You can copy and save the `agent_id` of the agent and use additional methods to interact with the agent.
+
+```python Python
+my_agent = client.agents.retrieve_agent(agent_id="xxxxxxxx")
+
+message = "Let's qualify this lead:\n\nName: Ethan Trang\n\nCompany: Relevance AI\n\nEmail: ethan@relevanceai.com"
+
+triggered_task = client.tasks.trigger_task(
+    agent_id="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", 
+    message=message
+)
+triggered_task
+```
+```
+TriggeredTask(conversation_id="xxxxxxxx")
+```
+
+## Using Tools 
+
+Similarly, you can list all the tools in the project.
+
+```python Python
+my_tools = client.tools.list_tools()
+my_tools
+```
+
+```terminal
+[Tool(tool_id="xxxxxxxx", title="Search Website"), Tool(tool_id="xxxxxxxx", title="Extract LinkedIn Data")]
+```
+
+You can copy and save the `tool_id` of the tool and use additional methods to interact with the tool.
+
+```python Python
+my_tool = client.tools.retrieve_tool(tool_id="xxxxxxxx")
+
+params = {"text": "This is text", "number": 245}
+
+tool_response = client.tools.trigger_tool(
+    tool_id="xxxxxxxx",
+    params=params
+)
+tool_response
+```
+
+```terminal
+ToolOutput(output="...", state="...")
+```
+
+## Explore more 
+
+Explore all the methods available for agents, tasks, tools, and knowledge in the following sections.
+
+

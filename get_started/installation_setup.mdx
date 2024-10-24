@@ -1,0 +1,54 @@
+---
+title: "Installation and setup"
+---
+
+## Create an account
+
+Before you get started, make sure you create an account and install Relevance AI.
+
+1. Sign up for a free account at https://app.relevanceai.com and then login to your Relevance AI account.
+2. Create a new secret key at https://app.relevanceai.com/login/sdk. Scroll to the bottom of the integrations page and click on "+ Create new secret key" and select "Admin" permissions.
+
+## Install our package
+
+Install the RelevanceAI library in a Python 3 environment by running the following command in your terminal
+```terminal Terminal
+pip install relevanceai
+```
+
+## Setup your client
+
+Create the RelevanceAI client by importing the library.
+
+```python Python
+from relevanceai import RelevanceAI
+client = RelevanceAI()
+```
+
+You can validate the client credentials by storing the following environment variables and loading them into your project with `python-dotenv` or `os` library. Your client should run without any errors.
+
+
+```env .env
+RAI_API_KEY=
+RAI_REGION=
+RAI_PROJECT=
+```
+```python Python
+from dotenv import load_dotenv
+load_dotenv()
+
+from relevanceai import RelevanceAI
+client = RelevanceAI()
+```
+
+Or you can pass the credentials directly to the client.
+```python Python
+from relevanceai import RelevanceAI
+client = RelevanceAI(
+    api_key="your_api_key", 
+    region="your_region", 
+    project="your_project"
+)
+```
+
+You are now ready to start using Relevance AI via the Python SDK.

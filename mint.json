@@ -24,9 +24,15 @@
     "name": "Sign Up",
     "url": "https://auth.relevanceai.com/signup/"
   },
+  "versions": ["v10.0.0", "v6.0.0"],
   "anchors": [
     {
-      "name": "Schedule a Call",
+      "name": "General Documentation",
+      "icon": "books",
+      "url": "https://relevanceai.com/docs"
+    },
+    {
+      "name": "Request a Call",
       "icon": "phone",
       "url": "https://relevanceai.com/book-a-demo"
     },
@@ -36,19 +42,41 @@
       "url": "https://github.com/RelevanceAI/relevanceai"
     },
     {
-      "name": "Community",
+      "name": "Discord",
       "icon": "discord",
       "url": "https://discord.com/invite/8VHJJrQZMM"
-    },
-    {
-      "name": "General Documentation",
-      "icon": "vuejs",
-      "url": "https://relevanceai.com/docs"
     }
   ],
   "navigation": [
     {
+      "group": "Get Started",
+      "version": "v10.0.0",
+      "pages": [
+        "get_started/introduction",
+        "get_started/installation_setup",
+        "get_started/quickstart"
+      ]
+    },
+    {
+      "group": "Concepts",
+      "version": "v10.0.0",
+      "pages": [
+        "concepts/agents",
+        "concepts/tasks",
+        "concepts/tools",
+        "concepts/knowledge"
+      ]
+    },
+    {
+      "group": "Examples",
+      "version": "v10.0.0",
+      "pages": [
+        "examples/see_examples"
+      ]
+    },
+    {
       "group": "Python",
+      "version": "v6.0.0",
       "pages": [
         "python/installation",
         "python/connect_fastapi"
@@ -56,12 +84,14 @@
     },
     {
       "group": "Partnership",
+      "version": "v6.0.0",
       "pages": [
         "partnership/your-product-as-a-new-tool"
       ]
     },
     {
       "group": "Bonus",
+      "version": "v6.0.0",
       "pages": [
         "bonus/shareable-app",
         "bonus/custom-actions-for-gpts"

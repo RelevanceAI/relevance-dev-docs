@@ -1,0 +1,114 @@
+---
+title: "Tools"
+description: "Tools are utilities that can be used to perform specific operations within a project."
+---
+
+## Listing Tools
+
+To list all tools available in your project, use the `list_tools` method:
+
+```python Python
+my_tools = client.tools.list_tools()
+my_tools
+```
+
+```terminal
+[Tool(tool_id="xxxxxxxx", name="Tool 1"), Tool(tool_id="xxxxxxxx", name="Tool 2")]
+```
+
+## Retrieving a Tool
+
+To retrieve a specific tool, use the `retrieve_tool` method with the `tool_id`:
+
+```python Python
+my_tool = client.tools.retrieve_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+
+my_tool
+```
+
+```terminal
+Tool(tool_id="xxxxxxxx", name="Tool 1")
+```
+
+## Triggering a Tool
+
+To trigger a tool with specific parameters, use the `trigger_tool` method:
+
+```python Python
+params = {
+    "text": "Yes",
+    "long_text": "This is a long text",
+}
+
+tool_output = client.tools.trigger_tool(
+    tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    params=params
+)
+
+tool_output
+```
+
+```terminal
+ToolOutput(output="Result of the tool execution")
+```
+
+## Getting Tool Parameters as JSON
+
+To get the parameters of a tool as a JSON string, use the `_get_params_as_json_string` method:
+
+```python Python
+params_json = client.tools._get_params_as_json_string(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+params_json
+```
+
+```terminal
+{
+    "text": {
+        "type": "string",
+        "order": 0,
+        "title": "",
+        "metadata": {}
+    },
+    "long_text": {
+        "type": "string",
+        "metadata": {
+            "content_type": "long_text"
+        },
+        "order": 1
+    }
+}
+```
+
+## Getting Tool Steps as JSON
+
+To get the steps of a tool as a JSON string, use the `_get_steps_as_json_string` method:
+
+```python Python
+steps_json = client.tools._get_steps_as_json_string(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+steps_json
+```
+
+```terminal
+[
+    {
+        "transformation": "python_code_transformation",
+        "name": "python",
+        "params": {
+            "code": "\nreturn {\"params\" : params, \"steps\": steps}"
+        }
+    }
+]
+```
+
+## Deleting a Tool
+
+To delete a tool, use the `delete_tool` method with the `tool_id`:
+
+```python Python
+success = client.tools.delete_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+success
+```
+
+```terminal
+True
+```
