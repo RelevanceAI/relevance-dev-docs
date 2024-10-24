@@ -1,0 +1,44 @@
+---
+title: "Agents"
+description: "Agents are assistants that leverage tools and subagents to perform complex tasks."
+---
+
+## Listing Agents
+
+To list all the agents in your project, use the `list_agents` method:
+
+```python Python
+my_agents = client.agents.list_agents()
+my_agents
+```
+
+```terminal
+[Agent(agent_id="xxxxxxxx", name="Scott Henderson's SEO & Growth Marketing Agent"), Agent(agent_id="xxxxxxxx", name="Rosh Singh's Sales & Research Qualifier Agent")]
+```
+
+## Retrieving an Agent
+
+To retrieve a specific agent, use the `retrieve_agent` method with the `agent_id`:
+
+```python Python
+my_agent = client.agents.retrieve_agent(agent_id="xxxxxxxx")
+
+my_agent
+```
+
+```terminal
+Agent(agent_id="xxxxxxxx", name="Scott Henderson's SEO & Growth Marketing Agent")
+```
+
+## Deleting an Agent
+
+To delete an agent, use the `delete_agent` method with the `agent_id`:
+
+```python Python
+success = client.agents.delete_agent(agent_id="xxxxxxxx")
+success
+```
+
+```terminal
+True
+```

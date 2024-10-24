@@ -1,0 +1,141 @@
+---
+title: "Tasks"
+description: "Tasks are conversations between users and agents that can be triggered, scheduled, and approved."
+---
+
+## Listing Tasks
+
+To list all tasks for a specific agent, use the `list_tasks` method:
+
+```python Python
+my_tasks = client.tasks.list_tasks(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+my_tasks
+```
+
+```terminal
+[Task(task_id="xxxxxxxx", name="Task 1"), Task(task_id="xxxxxxxx", name="Task 2")]
+```
+
+## Retrieving a Task
+
+To retrieve a specific task, use the `retrieve_task` method with the `agent_id` and `conversation_id`:
+
+```python Python
+my_task = client.tasks.retrieve_task(
+    agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+)
+
+my_task
+```
+
+```terminal
+Task(task_id="xxxxxxxx", name="Task 1")
+```
+
+## Viewing Task Steps
+
+To view the steps of a task, use the `view_task_steps` method:
+
+```python Python
+task_steps = client.tasks.view_task_steps(
+    agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+)
+
+task_steps
+```
+
+```terminal
+TaskView(steps=[...])
+```
+
+## Approving a Task
+
+To approve a task, use the `approve_task` method:
+
+```python Python
+approved_task = client.tasks.approve_task(
+    agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+)
+
+approved_task
+```
+
+```terminal
+TriggeredTask(task_id="xxxxxxxx", status="approved")
+```
+
+## Deleting a Task
+
+To delete a task, use the `delete_task` method:
+
+```python Python
+success = client.tasks.delete_task(
+    agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+)
+
+success
+```
+
+```terminal
+True
+```
+
+## Triggering a Task
+
+To trigger a task, use the `trigger_task` method with a message:
+
+```python Python
+message = "OUR_SALES_EMAIL```xxxxxx@xxxxxx.com```EMAIL_THREAD_ID```xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx```\nLinkedIn_Chat_ID```xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx```"
+
+triggered_task = client.tasks.trigger_task(
+    agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", 
+    message=message
+)
+
+triggered_task
+```
+
+```terminal
+TriggeredTask(task_id="xxxxxxxx", status="triggered")
+```
+
+## Rerunning a Task
+
+To rerun a task, use the `rerun_task` method:
+
+```python Python
+rerun_task = client.tasks.rerun_task(
+    agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", 
+    conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+)
+
+rerun_task
+```
+
+```terminal
+TriggeredTask(task_id="xxxxxxxx", status="rerun")
+```
+
+## Scheduling an Action in a Task
+
+To schedule an action in a task, use the `schedule_action_in_task` method:
+
+```python Python
+scheduled_action = client.tasks.schedule_action_in_task(
+    agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", 
+    conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", 
+    message=message,
+    minutes_until_schedule=86400 # 1 day 
+)
+
+scheduled_action
+```
+
+```terminal
+ScheduledActionTrigger(action_id="xxxxxxxx", status="scheduled")
+```

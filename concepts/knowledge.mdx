@@ -1,0 +1,49 @@
+---
+title: "Knowledge"
+description: "Knowledge sets are collections of data that can be managed and queried within a project."
+---
+
+## Listing Knowledge Sets
+
+To list all knowledge sets available in your project, use the `list_knowledge` method:
+
+```python Python
+my_knowledge_sets = client.knowledge.list_knowledge()
+my_knowledge_sets
+````
+
+
+````terminal
+[KnowledgeSet(set_id="xxxxxx", name="Knowledge Set 1"), KnowledgeSet(set_id="xxxxxx", name="Knowledge Set 2")]
+````
+
+
+## Retrieving Knowledge
+
+To retrieve data from a specific knowledge set, use the `retrieve_knowledge` method with the `knowledge_set` name:
+
+````python Python
+my_knowledge_data = client.knowledge.retrieve_knowledge(knowledge_set="xxxxxx") # use the table name here 
+
+my_knowledge_data
+````
+
+
+````terminal
+[KnowledgeRow(row_id="xxxxxx", data={"field1": "value1", "field2": "value2"}), KnowledgeRow(row_id="xxxxxx", data={"field1": "value3", "field2": "value4"})]
+````
+
+
+## Deleting a Knowledge Set
+
+To delete a knowledge set, use the `delete_knowledge` method with the `knowledge_set` name:
+
+````python Python
+success = client.knowledge.delete_knowledge(knowledge_set="xxxxxx")
+success
+````
+
+
+````terminal
+True
+````
