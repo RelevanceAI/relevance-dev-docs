@@ -1,0 +1,36 @@
+---
+title: "Tasks"
+description: "Tasks are conversations between users and agents."
+---
+
+## Getting Task Metadata
+
+To get metadata for a specific task, use the `get_metadata` method with the `conversation_id`:
+
+```python Python
+metadata = client.tasks.get_metadata(
+    conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+)
+
+metadata
+```
+
+```terminal
+Metadata(...)
+```
+
+## Deleting a Task
+
+To delete a task, use the `delete_task` method with the `conversation_id`:
+
+```python Python
+success = client.tasks.delete_task(
+    conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+)
+
+success
+```
+
+```terminal
+True
+```

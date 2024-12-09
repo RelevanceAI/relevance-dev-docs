@@ -1,0 +1,106 @@
+---
+title: "Tools"
+description: "Tools are chains of transformations to perform specific functions."
+---
+
+## ToolsManager
+
+#### Listing Tools
+
+To list all tools available in your project, use the `list_tools` method:
+
+```python
+tool_list = client.tools.list_tools(max_results=100)
+tool_list
+```
+
+```
+[Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Tool 1"), Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Tool 2")]
+```
+
+## Tool
+
+#### Retrieving a Tool
+
+To retrieve a specific tool by its ID, use the `retrieve_tool` method:
+
+```python
+my_tool = client.tools.retrieve_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+my_tool
+```
+
+```
+Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Tool Name")
+```
+
+#### Deleting a Tool
+
+To delete a tool, use the `delete` method:
+
+```python
+success = my_tool.delete()
+success
+```
+
+```
+True
+```
+
+#### Updating a Tool
+
+To update a tool's properties, use the `update` method:
+
+```python
+updates = {"title": "New Tool Name"}
+result = my_tool.update(updates=updates)
+```
+
+#### Triggering a Tool
+
+To execute a tool with specific parameters, use the `trigger` method:
+
+```python
+result = my_tool.trigger(params={"search_query": "Example Query"})
+result
+```
+
+```
+ToolOutput(...)
+```
+
+#### Getting Parameter Schema
+
+To view the parameter schema for a tool, use the `get_params_schema` method:
+
+```python
+params_schema = my_tool.get_params_schema()
+params_schema
+```
+
+```
+{
+    "search_query": {
+        "type": "string",
+        "description": "The search query to execute"
+    }
+    ...
+}
+```
+
+#### Viewing Tool Steps
+
+To view the transformation steps of a tool, use the `get_steps` method:
+
+```python
+steps = my_tool.get_steps()
+steps
+```
+
+```
+{
+    "steps": [
+        {...},
+        {...}
+    ]
+}
+```
