@@ -1,0 +1,96 @@
+---
+title: "Quickstart"
+description: "Start interacting with your agents, tools, and knowledge."
+---
+
+## Getting Started
+
+First, initialize the Relevance AI client:
+
+```python
+from relevanceai import RelevanceAI
+client = RelevanceAI()
+```
+
+## Working with Agents
+
+List all available agents in your project:
+
+```python
+agents = client.agents.list_agents()
+agents
+```
+
+```terminal
+[Agent(agent_id="xxxxxxxx", name="Sales Qualifier"), Agent(agent_id="xxxxxxxx", name="SEO Assistant")]
+```
+
+Retrieve a specific agent and trigger a task:
+
+```python
+my_agent = client.agents.retrieve_agent(agent_id="xxxxxxxx")
+
+# Trigger a task with the agent
+task = my_agent.trigger_task(message="Analyze this lead: John Smith from Acme Corp")
+print(f"Task started with ID: {task.conversation_id}")
+
+# View task progress
+steps = my_agent.view_task_steps(conversation_id=task.conversation_id)
+```
+
+## Using Tools
+
+List and interact with available tools:
+
+```python
+tools = client.tools.list_tools()
+tools
+```
+
+```terminal
+[Tool(tool_id="xxxxxxxx", title="Search Website"), Tool(tool_id="xxxxxxxx", title="Extract Data")]
+```
+
+Trigger a tool with specific parameters:
+
+```python
+my_tool = client.tools.retrieve_tool(tool_id="xxxxxxxx")
+
+# Check tool parameters schema
+params_schema = my_tool.get_params_schema()
+
+# Trigger the tool
+result = my_tool.trigger(params={"search_query": "AI automation"})
+```
+
+## Managing Knowledge Sets
+
+Work with knowledge sets to store and retrieve data:
+
+```python
+# List knowledge sets
+knowledge_sets = client.knowledge.list_knowledge()
+
+# Retrieve data from a knowledge set
+data = client.knowledge.retrieve_knowledge(knowledge_set="my_dataset")
+```
+
+## Managing Tasks
+
+Track and manage ongoing tasks:
+
+```python
+# Get task metadata
+metadata = client.tasks.get_metadata(conversation_id="xxxxxxxx")
+
+# Delete a completed task
+client.tasks.delete_task(conversation_id="xxxxxxxx")
+```
+
+## Next Steps
+
+Explore more detailed documentation for:
+- [Agents](/concepts/agents)
+- [Tools](/concepts/tools)
+- [Tasks](/concepts/tasks)
+- [Knowledge](/concepts/knowledge)

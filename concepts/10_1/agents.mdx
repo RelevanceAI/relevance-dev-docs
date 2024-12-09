@@ -1,0 +1,172 @@
+---
+title: "Agents"
+description: "Agents are assistants that leverage tools and subagents to perform complex tasks."
+---
+
+## AgentsManager
+
+#### Listing Agents
+
+To list all agents available in your project, use the `list_agents` method:
+
+`````python
+agent_list = client.agents.list_agents()
+agent_list
+`````
+
+
+`````
+[Agent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", name="Agent 1"), Agent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", name="Agent 2")]
+`````
+
+#### Retrieving an Agent
+
+To retrieve a specific agent by its ID, use the `retrieve_agent` method:
+
+`````python
+my_agent = client.agents.retrieve_agent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+my_agent
+`````
+
+
+`````
+Agent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", name="Agent Name")
+`````
+
+## Agent 
+
+#### Deleting an Agent
+
+To delete an agent, use the `delete_agent` method:
+
+`````python
+success = my_agent.delete_agent()
+success
+`````
+
+
+`````
+True
+`````
+
+#### Listing Tools
+
+To list all tools associated with an agent, use the `list_tools` method:
+
+`````python
+tools = my_agent.list_tools()
+tools
+`````
+
+
+`````
+[Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Tool 1"), Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Tool 2")]
+`````
+
+#### Listing Subagents
+
+To list all subagents associated with an agent, use the `list_subagents` method:
+
+`````python
+subagents = my_agent.list_subagents()
+subagents
+`````
+
+
+`````
+[Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Subagent 1"), Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Subagent 2")]
+`````
+
+#### Triggering a Task
+
+To trigger a task with a message, use the `trigger_task` method:
+
+`````python
+triggered_task = my_agent.trigger_task(message="Hello, Agent!")
+triggered_task
+`````
+
+
+`````
+TriggeredTask(task_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", status="triggered")
+`````
+
+#### Viewing Task Steps
+
+To view the steps of a task, use the `view_task_steps` method:
+
+`````python
+task_view = my_agent.view_task_steps(conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+task_view
+`````
+
+
+`````
+TaskView(steps=[...])
+`````
+
+#### Approving a Task
+
+To approve a task, use the `approve_task` method:
+
+`````python
+approved_task = my_agent.approve_task(conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+approved_task
+`````
+
+
+`````
+TriggeredTask(task_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", status="approved")
+`````
+
+#### Rerunning a Task
+
+To rerun a task, use the `rerun_task` method:
+
+`````python
+rerun_task = my_agent.rerun_task(conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+rerun_task
+`````
+
+
+`````
+TriggeredTask(task_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", status="rerun")
+`````
+
+#### Scheduling an Action in a Task
+
+To schedule an action in a task, use the `schedule_action_in_task` method:
+
+`````python
+scheduled_action = my_agent.schedule_action_in_task(conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", message="Schedule this action", minutes_until_schedule=10)
+scheduled_action
+`````
+
+
+`````
+ScheduledActionTrigger(trigger_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", status="scheduled")
+`````
+
+#### Getting Task Output Preview
+
+To get a preview of the task output, use the `get_task_output_preview` method:
+
+`````python
+output_preview = my_agent.get_task_output_preview(conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+output_preview
+`````
+
+
+`````
+{"field1": "value1", "field2": "value2"}
+`````
+
+#### Managing Tools
+
+To add, remove, or clear all tools associated with an agent, use the `add_tool`, `remove_tool`, and `remove_all_tools` methods respectively:
+
+`````python
+my_agent.add_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+my_agent.remove_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+my_agent.remove_all_tools()
+`````

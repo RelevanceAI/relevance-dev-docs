@@ -24,7 +24,7 @@
     "name": "Sign Up",
     "url": "https://auth.relevanceai.com/signup/"
   },
-  "versions": ["v10.0.0", "v6.0.0"],
+  "versions": ["v10.1.0+","v10.0.0+", "v6.0.0"],
   "anchors": [
     {
       "name": "General Documentation",
@@ -50,7 +50,16 @@
   "navigation": [
     {
       "group": "Get Started",
-      "version": "v10.0.0",
+      "version": "v10.1.0+",
+      "pages": [
+        "get_started/introduction",
+        "get_started/installation_setup",
+        "get_started/10_1/quickstart"
+      ]
+    },
+    {
+      "group": "Get Started",
+      "version": "v10.0.0+",
       "pages": [
         "get_started/introduction",
         "get_started/installation_setup",
@@ -59,7 +68,17 @@
     },
     {
       "group": "Concepts",
-      "version": "v10.0.0",
+      "version": "v10.1.0+",
+      "pages": [
+        "concepts/10_1/agents",
+        "concepts/10_1/tasks",
+        "concepts/10_1/tools",
+        "concepts/10_1/knowledge"
+      ]
+    },
+    {
+      "group": "Concepts",
+      "version": "v10.0.0+",
       "pages": [
         "concepts/agents",
         "concepts/tasks",
@@ -69,7 +88,7 @@
     },
     {
       "group": "Examples",
-      "version": "v10.0.0",
+      "version": "v10.0.0+",
       "pages": [
         "examples/see_examples"
       ]
