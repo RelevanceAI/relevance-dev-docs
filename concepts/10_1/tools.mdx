@@ -1,83 +1,163 @@
 ---
 title: "Tools"
-description: "Tools are chains of transformations to perform specific functions."
+description: "Tools are chains of transformations designed to perform specific functions."
 ---
 
 ## ToolsManager
 
-#### Listing Tools
+### Listing Tools
 
 To list all tools available in your project, use the `list_tools` method:
 
-```python
+`````python
 tool_list = client.tools.list_tools(max_results=100)
 tool_list
-```
+`````
 
-```
+Example response:
+`````
 [Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Tool 1"), Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Tool 2")]
-```
+`````
 
-## Tool
-
-#### Retrieving a Tool
+### Retrieving a Tool
 
 To retrieve a specific tool by its ID, use the `retrieve_tool` method:
 
-```python
+`````python
 my_tool = client.tools.retrieve_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
 my_tool
-```
+`````
 
-```
+Example response:
+`````
 Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Tool Name")
-```
+`````
 
-#### Deleting a Tool
+### Creating a Tool
 
-To delete a tool, use the `delete` method:
+To create a new tool, use the `create_tool` method:
 
-```python
-success = my_tool.delete()
+`````python
+new_tool = client.tools.create_tool(
+    title="New Tool",
+    description="This is a new tool.",
+    public=True,
+    params_schema={"search_query": {"type": "string", "description": "Search query"}},
+    output_schema={"results": {"type": "array", "items": {"type": "string"}}},
+    transformations=[{"name": "step1", "type": "transformation_type", "config": {"param": "value"}}]
+)
+new_tool
+`````
+
+Example response:
+`````
+Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="New Tool")
+`````
+
+### Cloning a Tool
+
+To clone an existing tool, use the `clone_tool` method:
+
+`````python
+cloned_tool = client.tools.clone_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+cloned_tool
+`````
+
+### Deleting a Tool
+
+To delete a tool, use the `delete_tool` method:
+
+`````python
+success = client.tools.delete_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
 success
-```
+`````
 
-```
+Example response:
+`````
 True
-```
+`````
 
-#### Updating a Tool
+---
 
-To update a tool's properties, use the `update` method:
+## Tool
 
-```python
-updates = {"title": "New Tool Name"}
-result = my_tool.update(updates=updates)
-```
+### Updating a Tool
+
+#### Updating Metadata
+
+To update a tool's metadata, use the `update_metadata` method:
+
+`````python
+result = my_tool.update_metadata(title="Updated Tool Title", description="Updated description.", public=False)
+result
+`````
+
+#### Updating Parameters
+
+To update a tool's parameter schema, use the `update_params` method:
+
+`````python
+params = {
+    "search_query": Param(value="example query", required=True, type="string")
+}
+result = my_tool.update_params(params=params)
+result
+`````
+
+#### Updating Transformations
+
+To update a tool's transformations, use the `update_transformations` method:
+
+`````python
+transformations = [
+    TransformationBase(name="step1", type="transformation_type", config={"param": "value"})
+]
+result = my_tool.update_transformations(transformations=transformations)
+result
+`````
+
+#### Updating Outputs
+
+To update the output schema or mapping of a tool, use the `update_outputs` method:
+
+`````python
+result = my_tool.update_outputs(
+    last_step=True,
+    output_mapping={"field": "value"},
+    output_schema_properties={"field": {"type": "string", "description": "Output field description"}}
+)
+result
+`````
+
+### Executing a Tool
 
 #### Triggering a Tool
 
 To execute a tool with specific parameters, use the `trigger` method:
 
-```python
+`````python
 result = my_tool.trigger(params={"search_query": "Example Query"})
 result
-```
+`````
 
-```
+Example response:
+`````
 ToolOutput(...)
-```
+`````
 
-#### Getting Parameter Schema
+### Viewing Tool Details
+
+#### Viewing Parameter Schema
 
 To view the parameter schema for a tool, use the `get_params_schema` method:
 
-```python
+`````python
 params_schema = my_tool.get_params_schema()
 params_schema
-```
+`````
 
-```
+Example response:
+`````
 {
     "search_query": {
         "type": "string",
@@ -85,22 +165,38 @@ params_schema
     }
     ...
 }
-```
+`````
 
-#### Viewing Tool Steps
+#### Viewing Transformation Steps
 
-To view the transformation steps of a tool, use the `get_steps` method:
+To view the transformation steps of a tool, use the `get_transformations_schema` method:
 
-```python
-steps = my_tool.get_steps()
+`````python
+steps = my_tool.get_transformations_schema()
 steps
-```
+`````
 
-```
+Example response:
+`````
 {
     "steps": [
         {...},
         {...}
     ]
 }
-```
+`````
+
+### Getting Tool Links
+
+To get a link to a tool's configuration page, use the `get_link` method:
+
+`````python
+link = my_tool.get_link()
+link
+`````
+
+Example response:
+`````
+"https://app.relevanceai.com/agents/region/project/tool_id"
+`````
+
