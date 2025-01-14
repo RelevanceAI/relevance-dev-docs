@@ -1,11 +1,11 @@
 ---
 title: "Agents"
-description: "Agents are assistants that leverage tools and subagents to perform complex tasks."
+description: "Agents are intelligent assistants capable of leveraging tools and subagents to perform complex tasks."
 ---
 
 ## AgentsManager
 
-#### Listing Agents
+### Listing Agents
 
 To list all agents available in your project, use the `list_agents` method:
 
@@ -14,12 +14,12 @@ agent_list = client.agents.list_agents()
 agent_list
 `````
 
-
+Example response:
 `````
 [Agent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", name="Agent 1"), Agent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", name="Agent 2")]
 `````
 
-#### Retrieving an Agent
+### Retrieving an Agent
 
 To retrieve a specific agent by its ID, use the `retrieve_agent` method:
 
@@ -28,26 +28,44 @@ my_agent = client.agents.retrieve_agent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxx
 my_agent
 `````
 
-
+Example response:
 `````
 Agent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", name="Agent Name")
 `````
 
-## Agent 
+### Upserting an Agent
 
-#### Deleting an Agent
+To create or update an agent, use the `upsert_agent` method:
+
+`````python
+new_agent = client.agents.upsert_agent(name="New Agent", system_prompt="You are a helpful assistant.", model="gpt-3.5", temperature=0.7)
+new_agent
+`````
+
+Example response:
+`````
+Agent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", name="New Agent")
+`````
+
+### Deleting an Agent
 
 To delete an agent, use the `delete_agent` method:
 
 `````python
-success = my_agent.delete_agent()
+success = client.agents.delete_agent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
 success
 `````
 
-
+Example response:
 `````
 True
 `````
+
+---
+
+## Agent
+
+### Managing Tools
 
 #### Listing Tools
 
@@ -58,10 +76,36 @@ tools = my_agent.list_tools()
 tools
 `````
 
-
+Example response:
 `````
 [Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Tool 1"), Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Tool 2")]
 `````
+
+#### Adding a Tool
+
+To add a tool to an agent, use the `add_tool` method:
+
+`````python
+my_agent.add_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+`````
+
+#### Removing a Tool
+
+To remove a tool from an agent, use the `remove_tool` method:
+
+`````python
+my_agent.remove_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+`````
+
+#### Removing All Tools
+
+To clear all tools associated with an agent, use the `remove_all_tools` method:
+
+`````python
+my_agent.remove_all_tools()
+`````
+
+### Managing Subagents
 
 #### Listing Subagents
 
@@ -72,10 +116,28 @@ subagents = my_agent.list_subagents()
 subagents
 `````
 
-
+Example response:
 `````
 [Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Subagent 1"), Tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", title="Subagent 2")]
 `````
+
+#### Adding a Subagent
+
+To add a subagent to an agent, use the `add_subagent` method:
+
+`````python
+my_agent.add_subagent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", action_behaviour="always-ask")
+`````
+
+#### Removing a Subagent
+
+To remove a subagent from an agent, use the `remove_subagent` method:
+
+`````python
+my_agent.remove_subagent(agent_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+`````
+
+### Task Management
 
 #### Triggering a Task
 
@@ -86,7 +148,7 @@ triggered_task = my_agent.trigger_task(message="Hello, Agent!")
 triggered_task
 `````
 
-
+Example response:
 `````
 TriggeredTask(task_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", status="triggered")
 `````
@@ -100,11 +162,6 @@ task_view = my_agent.view_task_steps(conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxx
 task_view
 `````
 
-
-`````
-TaskView(steps=[...])
-`````
-
 #### Approving a Task
 
 To approve a task, use the `approve_task` method:
@@ -112,11 +169,6 @@ To approve a task, use the `approve_task` method:
 `````python
 approved_task = my_agent.approve_task(conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
 approved_task
-`````
-
-
-`````
-TriggeredTask(task_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", status="approved")
 `````
 
 #### Rerunning a Task
@@ -128,11 +180,6 @@ rerun_task = my_agent.rerun_task(conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxx
 rerun_task
 `````
 
-
-`````
-TriggeredTask(task_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", status="rerun")
-`````
-
 #### Scheduling an Action in a Task
 
 To schedule an action in a task, use the `schedule_action_in_task` method:
@@ -140,11 +187,6 @@ To schedule an action in a task, use the `schedule_action_in_task` method:
 `````python
 scheduled_action = my_agent.schedule_action_in_task(conversation_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", message="Schedule this action", minutes_until_schedule=10)
 scheduled_action
-`````
-
-
-`````
-ScheduledActionTrigger(trigger_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", status="scheduled")
 `````
 
 #### Getting Task Output Preview
@@ -156,17 +198,44 @@ output_preview = my_agent.get_task_output_preview(conversation_id="xxxxxx-xxxx-x
 output_preview
 `````
 
-
+Example response:
 `````
 {"field1": "value1", "field2": "value2"}
 `````
 
-#### Managing Tools
+### Updating Agent Settings
 
-To add, remove, or clear all tools associated with an agent, use the `add_tool`, `remove_tool`, and `remove_all_tools` methods respectively:
+#### Updating Core Instructions
+
+To update the core instructions for an agent, use the `update_core_instructions` method:
 
 `````python
-my_agent.add_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-my_agent.remove_tool(tool_id="xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-my_agent.remove_all_tools()
+my_agent.update_core_instructions(core_instructions="You are now a debugging assistant.")
 `````
+
+#### Updating Template Settings
+
+To update template settings for an agent, use the `update_template_settings` method:
+
+`````python
+template_params = {
+    "param1": Param(value="value1", required=True),
+    "param2": Param(value="value2", required=False)
+}
+my_agent.update_template_settings(params=template_params)
+`````
+
+### Getting Agent Links
+
+To get a link to an agent's configuration page, use the `get_link` method:
+
+`````python
+link = my_agent.get_link()
+link
+`````
+
+Example response:
+`````
+"https://app.relevanceai.com/agents/region/project/agent_id"
+`````
+
